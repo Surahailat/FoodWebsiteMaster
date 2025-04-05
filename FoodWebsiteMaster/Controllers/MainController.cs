@@ -8,5 +8,9 @@ namespace FoodWebsiteMaster.Controllers
 		{
 			return View();
 		}
+		public IActionResult Home2()
+		{
+			return View();
+		}
 	}
 }
