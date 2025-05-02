@@ -1,0 +1,161 @@
+﻿
+@{
+    ViewData["Title"] = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="payment-section">
+    <div class="container4">
+        <h3 class="mb-4">Personal Details</h3>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName">
+            </div>
+            <div class="col-md-6">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName">
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">E-Mail Address</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <div class="col-md-6">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone">
+            </div>
+        </div>
+
+        <h3 class="mt-5 mb-4" style="padding-top: 2%;">Payment Method</h3>
+        <div>
+            <div class="payment-tab">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="paypal" value="paypal" checked>
+                    <label class="form-check-label" for="paypal">
+                        PayPal
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="payment-logo">
+                    </label>
+                </div>
+                <div class="payment-tab-content" id="paypal-content">
+                    <p>You will be redirected to PayPal to complete the payment.</p>
+                </div>
+            </div>
+
+            <div class="payment-tab">
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" value="creditCard">
+                    <label class="form-check-label" for="creditCard">
+                        Credit / Debit Card
+                    </label>
+                </div>
+                <div class="payment-tab-content" id="creditCard-content">
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <label for="nameOnCard" class="form-label">Name on Card</label>
+                            <input type="text" class="form-control" id="nameOnCard">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cardNumber" class="form-label">Card Number</label>
+                            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9876 5432">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="expiryMonth" class="form-label">Expiry Month</label>
+                            <input type="text" class="form-control" id="expiryMonth" placeholder="MM">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="expiryYear" class="form-label">Expiry Year</label>
+                            <input type="text" class="form-control" id="expiryYear" placeholder="YY">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" id="cvv">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="#" class="button11">Confirm and Pay</a>
+    </div>
+</section>
+
+<style>
+    .payment-section {
+        padding: 50px 0;
+        background-color: #f9f9f9;
+    }
+
+    .container4 {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 40px 30px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .payment-section h3 {
+        font-size: 24px;
+        color: #333;
+        font-weight: 600;
+        border-left: 5px solid #00bfa6;
+        padding-left: 15px;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #555;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        transition: border-color 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #00bfa6;
+            box-shadow: 0 0 0 3px rgba(0,191,166,0.1);
+        }
+
+    .payment-tab {
+        margin-bottom: 20px;
+        padding: 15px 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #fcfcfc;
+    }
+
+    .payment-tab-content {
+        margin-top: 10px;
+        padding-left: 20px;
+        color: #444;
+    }
+
+    .payment-logo {
+        height: 24px;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+
+    .button11 {
+        display: inline-block;
+        margin-top: 30px;
+        background-color: #00bfa6;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        text-align: center;
+    }
+
+        .button11:hover {
+            background-color: #009e8a;
+        }
+
+</style>
+

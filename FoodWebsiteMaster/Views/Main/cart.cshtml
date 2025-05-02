@@ -1,0 +1,51 @@
+﻿<head>
+    <link href="~/css/cart.css" rel="stylesheet" />
+</head>
+
+<div class="container my-5">
+    <h2 class="cart-title mb-4">Your cart</h2>
+    <div class="table-responsive mb-4">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>IMAGE</th>
+                    <th>NAME</th>
+                    <th>PRICE</th>
+                    <th>QUANTITY</th>
+                    <th>TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src="https://cdn.shopify.com/s/files/1/0680/4150/7113/files/Fruity.jpg?v=1674491083" class="cart-img" alt="fruit"></td>
+                    <td>
+                        Fruitery<br>
+                        <small class="text-muted">Fruit plate with watermelon</small>
+                    </td>
+                    <td>$10.00</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-outline-secondary btn-sm">-</button>
+                            <span class="mx-2">4</span>
+                            <button class="btn btn-outline-secondary btn-sm">+</button>
+                        </div>
+                    </td>
+                    <td>$40.00 <span class="text-danger ms-2" style="cursor:pointer;">🗑️</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <textarea class="form-control" rows="3" placeholder="Order special instructions"></textarea>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+            <div class="checkout-box">
+                <p class="subtotal-text">Subtotal $40.00</p>
+                <p class="text-muted">Taxes and shipping calculated at checkout</p>
+                <button class="btn btn-dark w-100">Proceed to checkout</button>
+            </div>
+        </div>
+    </div>
+</div>

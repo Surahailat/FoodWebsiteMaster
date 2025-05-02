@@ -1,0 +1,196 @@
+﻿
+<head>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="img/logos/favicon.png" />
+    <link rel="apple-touch-icon" href="img/logos/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="img/logos/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="img/logos/apple-touch-icon-114x114.png" />
+
+    <!-- plugins -->
+    <link rel="stylesheet" href="css/plugins.css">
+
+    <!-- search css -->
+    <link rel="stylesheet" href="search/search.css">
+
+    <!-- quform css -->
+    <link rel="stylesheet" href="quform/css/base.css">
+
+    <!-- theme core css -->
+    <link href="css/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- PAGE LOADING
+    ================================================== -->
+    <div id="preloader"></div>
+
+    <!-- MAIN WRAPPER
+    ================================================== -->
+    <div class="main-wrapper">
+        <!-- PAGE TITLE
+        ================================================== -->
+        <section class="page-title-section bg-img cover-background" data-overlay-dark="55" data-background="img/bg/bg-03.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Appointment</h1>
+                        <div class="breadcrumb">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="#!">Appointment</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-transparent border-width-2 border-solid border-secondary p-3 d-sm-inline-block rounded-circle position-absolute bottom-10 left-5 ani-top-bottom d-none z-index-3"></div>
+            <div class="bg-secondary p-1-6 d-lg-block rounded-circle position-absolute top-25 right-25 ani-top-bottom d-none z-index-3"></div>
+            <div class="bg-white p-2 d-sm-inline-block rounded-circle position-absolute top-40 left-25 ani-left-right d-none z-index-3"></div>
+        </section>
+
+        <!-- APPOINTMENT FORM
+        ================================================== -->
+        <section>
+            <div class="container">
+                <div class="section-heading">
+                    <span class="title-font text-primary display-25 display-md-23 d-block mb-1">Appointment</span>
+                    <h2 class="display-25 display-sm-20 display-md-20 display-xl-9 font-weight-600 mb-3">Make <span class="fw-bolder text-secondary"> an appointment</span></h2>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="border border-radius-10 border-color-light-black p-1-6 p-lg-2-6 z-index-9 position-relative">
+                            <form class="contact quform" asp-controller="Main" asp-action="CreateAppointment" method="post" enctype="multipart/form-data" >
+                                <div class="quform-elements">
+                                    <div class="row">
+                                        <!-- Begin Text input element -->
+                                        <div class="col-md-6">
+                                            <div class="quform-element form-group">
+                                                <label for="subject">Doctor Name <span class="quform-required">*</span></label>
+                                                <div class="quform-input">
+                                                    <input class="form-control" type="text" name="doctorName" value="@ViewBag.Doctor.Name" placeholder="Doctor Name" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Text input element -->
+                                        <!-- Begin Text input element -->
+                                        <div class="col-md-6">
+                                            <div class="quform-element form-group">
+                                                <label for="phone">Position</label>
+                                                <div class="quform-input">
+                                                    <input class="form-control" type="text" name="doctorPosition" value="@ViewBag.Doctor.Position" placeholder="Position" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Text input element -->
+                                        <!-- Begin Text input element -->
+                                        <div class="col-md-6">
+                                            <div class="quform-element form-group">
+                                                <label for="name">Your Name <span class="quform-required">*</span></label>
+                                                <div class="quform-input">
+                                                    <input class="form-control" name="name" type="text" value="@ViewBag.User.Username" placeholder="Your name here" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Text input element -->
+                                        <!-- Begin Text input element -->
+                                        <div class="col-md-6">
+                                            <div class="quform-element form-group">
+                                                <label for="email">Your Email <span class="quform-required">*</span></label>
+                                                <div class="quform-input">
+                                                    <input class="form-control" name="email" type="text" value="@ViewBag.User.Email" placeholder="Your email here" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Text input element -->
+                                        <!-- Begin Textarea element -->
+                                        <div class="col-md-12">
+                                            <div class="quform-element form-group">
+                                                <label for="message">Message <span class="quform-required">*</span></label>
+                                                <div class="quform-input">
+                                                    <textarea class="form-control" name="message" rows="3" placeholder="Tell us a few words"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Textarea element -->
+                                        <!-- Begin File upload element -->
+                                        <div class="col-md-12">
+                                            <div class="quform-element form-group">
+                                                <label for="file">Upload File <span style="font-weight: normal;">(Optional)</span></label>
+                                                <div class="quform-input">
+                                                    <input class="form-control" type="file" name="file" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End File upload element -->
+                                        @* @if (TempData["Error"] != null) *@
+                                        @* { *@
+                                        @*     <div class="alert alert-danger"> *@
+                                        @*         <h4> *@
+                                        @*             @TempData["Error"] *@
+                                        @*         </h4> *@
+                                        @*     </div> *@
+                                        @* } *@
+                                        <!-- Begin Submit button -->
+                                        <div class="col-md-12">
+                                            <div class="quform-submit-inner">
+                                                <button class="butn border-0" type="submit">Send Message</button>
+                                            </div>
+                                            <div class="quform-loading-wrap text-start"><span class="quform-loading"></span></div>
+                                        </div>
+                                        <!-- End Submit button -->
+                                    </div>
+
+                                </div>
+                            </form>
+                            <div class="position-absolute end-0 bottom-0 opacity2">
+                                <img src="/img/content/testimonial-bg.png" alt="...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img src="~/img/content/animation2.png" class="position-absolute bottom-5 left-0 ani-top-bottom d-none d-lg-block" alt="...">
+            </div>
+            <div class="bg-primary p-3 rounded-circle position-absolute top-5 right-10 z-index-3 ani-top-bottom d-none d-lg-block"></div>
+
+        </section>
+    </div>
+
+    <!-- BUY TEMPLATE
+    ================================================== -->
+    <div class="buy-theme alt-font d-none d-lg-inline-block"><a href="https://wrapbootstrap.com/theme/lifestyle-nutrition-health-diet-theme-WB07X4454" target="_blank"><i class="fas fa-cart-plus"></i><span>Buy Template</span></a></div>
+
+    <div class="all-demo alt-font d-none d-lg-inline-block"><a href="https://www.chitrakootweb.com/contact.html" target="_blank"><i class="far fa-envelope"></i><span>Quick Question?</span></a></div>
+
+    <!-- start scroll to top -->
+    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+    <!-- end scroll to top -->
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+
+    <!-- popper js -->
+    <script src="js/popper.min.js"></script>
+
+    <!-- bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- core.min.js -->
+    <script src="js/core.min.js"></script>
+
+    <!-- search -->
+    <script src="search/search.js"></script>
+
+    <!-- custom scripts -->
+    <script src="js/main.js"></script>
+
+    <!-- form plugins js -->
+    <script src="quform/js/plugins.js"></script>
+
+    <!-- form scripts js -->
+    <script src="quform/js/scripts.js"></script>
+
+    <!-- all js include end -->
+
+</body>
+

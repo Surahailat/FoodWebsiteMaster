@@ -33,346 +33,221 @@
 </head>
 <body>
 	<div class="main-wrapper">
-        <!-- HEADER
-        ================================================== -->
-        <header class="header-style1">
+		<!-- HEADER
+		================================================== -->
+		<header class="header-style1">
+			<div class="navbar-default">
+				<div class="menu_area alt-font bg-secondary">
+					<div class="container">
+						<div class="col-lg-12">
+							<nav class="navbar navbar-expand-lg navbar-light p-0">
 
-            <div class="container">
-                <div class="navbar-header navbar-header-custom row text-dark">
+								<div class="navbar-toggler bg-secondary"></div>
 
-                    <div class="col-lg-3">
-                        <!-- start logo -->
-                        <a href="index.html" class="navbar-brand logodefault"><img id="logo" src="~/img/logos/logo.png" alt="logo"></a>
-                        <!-- end logo -->
-                    </div>
+								<!-- start menu area -->
+								<ul class="navbar-nav me-auto" id="nav" style="display: none;">
+									<li><a asp-controller="Main" asp-action="Home2">Home</a></li>
 
-                    <div class="col-lg-9 col-xl-8 offset-xl-1 offset-lg-0 d-none d-lg-block">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <i class="ti-location-pin header-icon text-primary display-12"></i>
-                                    <div class="media-body ms-3">
-                                        <span class="font-weight-600 d-block display-29">Our Location</span>
-                                        <span class="font-weight-500 display-29 d-block">Guild Street 51, UK</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <i class="ti-email header-icon text-primary display-14"></i>
-                                    <div class="media-body ms-3">
-                                        <span class="font-weight-600 d-block display-29">Mail Us</span>
-                                        <span class="display-29 d-block">info@youremail.com</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <i class="ti-mobile header-icon text-primary display-12"></i>
-                                    <div class="media-body ms-3">
-                                        <span class="font-weight-600 d-block display-29">Call Us</span>
-                                        <span class="display-29 d-block">+123 4567 890</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+									<li>
+										<a href="#!">Services</a>
+									</li>
+									<li>
+										<a asp-controller="Products" asp-action="mealPlan">My Meals</a>
 
-                </div>
-            </div>
+									</li>
+									<li>
+										<a asp-controller="Products" asp-action="shop">shop</a>
 
-            <div class="navbar-default">
+									</li>
+									
+										@if (!string.IsNullOrEmpty(Context.Session.GetString("Email")))
+										{
+									<li>
+											<a asp-controller="Main" asp-action="ourDoctors">Doctors</a>
+									</li>
+										}
+									<li>
+										<a asp-controller="Main" asp-action="About">About us</a>
+									</li>
+									<li>
+										<a asp-controller="Main" asp-action="contact">Contact</a>
+									</li>
+								</ul>
+								<!-- end menu area -->
+								<!-- start attribute navigation -->
+								<div class="attr-nav align-items-lg-center ms-auto">
+									<ul>
+										<li class="cart">
+											<a asp-controller="Products" asp-action="cart">
+												<i class="fas fa-shopping-cart text-white"></i>
+											</a>
+										</li>
 
-                <!-- start top search -->
-                <div class="top-search custom-search bg-primary">
-                    <div class="container">
-                        <form class="search-form" action="search.html" method="GET" accept-charset="utf-8">
-                            <div class="input-group">
-                                <span class="input-group-addon cursor-pointer">
-                                    <button class="search-form_submit fas fa-search display-28 text-white" type="submit"></button>
-                                </span>
-                                <input type="text" class="search-form_input form-control" name="s" autocomplete="off" placeholder="Type & hit enter...">
-                                <span class="input-group-addon close-search mt-2"><i class="fas fa-times display-28"></i></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- end top search -->
-
-                <div class="menu_area alt-font bg-secondary">
-                    <div class="container">
-                        <div class="col-lg-12">
-                            <nav class="navbar navbar-expand-lg navbar-light p-0">
-
-                                <div class="navbar-toggler bg-secondary"></div>
-
-                                <!-- start menu area -->
-                                <ul class="navbar-nav me-auto" id="nav" style="display: none;">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li>
-                                        <a href="#!">Pages</a>
-                                        <ul>
-                                            <li><a href="about-us.html">About Us</a></li>
-                                            <li><a href="our-history.html">Our History</a></li>
-                                            <li><a href="meal-plans.html">Meal Plans</a></li>
-                                            <li><a href="seminar-schedule.html">Seminar Schedule</a></li>
-                                            <li><a href="success-story.html">Success Story</a></li>
-                                            <li>
-                                                <a href="#!">Our Team</a>
-                                                <ul>
-                                                    <li><a href="our-team.html">Our Team</a></li>
-                                                    <li><a href="team-details.html">Team Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="appointment.html">Appointment</a></li>
-                                            <li><a href="faq.html">FAQ</a></li>
-                                            <li>
-                                                <a href="#!">Others</a>
-                                                <ul>
-                                                    <li><a href="coming-soon.html">Comingsoon</a></li>
-                                                    <li><a href="404-page.html">404 Page</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#!">Services</a>
-                                        <ul>
-                                            <li><a href="our-services.html">Our Services</a></li>
-                                            <li><a href="balance-body-mind.html">Balance Body & Mind</a></li>
-                                            <li><a href="personalized-nutrition.html">Personalized Nutrition</a></li>
-                                            <li><a href="fitness-performance.html">Fitness & Performance</a></li>
-                                            <li><a href="healthy-daily-life.html">Healthy Daily Life</a></li>
-                                            <li><a href="support-motivation.html">Support & Motivation</a></li>
-                                            <li><a href="weight-loss-programs.html">Weight Loss Programs</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#!">Portfolio</a>
-                                        <ul>
-                                            <li><a href="our-portfolio.html">Our Portfolio</a></li>
-                                            <li><a href="portfolio-details.html">Portfolio Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#!">Blog</a>
-                                        <ul>
-                                            <li><a href="blog-grid.html">Blog Grid</a></li>
-                                            <li><a href="blog-list.html">Blog List</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#!">Elements</a>
-                                        <ul class="row megamenu">
-                                            <li class="col-lg-3 col-sm-12">
-                                                <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 01</span>
-                                                <ul>
-                                                    <li><a href="accordion.html"><i class="fas fa-sliders-h me-2"></i>Accordion</a></li>
-                                                    <li><a href="alerts.html"><i class="far fa-bell me-2"></i>Alerts</a></li>
-                                                    <li><a href="blockquotes.html"><i class="fas fa-vector-square me-2"></i>Blockquotes</a></li>
-                                                    <li><a href="buttons.html"><i class="fas fa-link me-2"></i>Buttons</a></li>
-                                                    <li><a href="call-to-action.html"><i class="far fa-square me-2"></i>Call to Action</a></li>
-                                                    <li><a href="carousel-slider.html"><i class="far fa-images me-2"></i>Carousel Slider</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="col-lg-3 col-sm-12">
-                                                <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 02</span>
-                                                <ul>
-                                                    <li><a href="count-down.html"><i class="far fa-flag me-2"></i>Count Down</a></li>
-                                                    <li><a href="counter.html"><i class="fas fa-compress me-2"></i>Counters</a></li>
-                                                    <li><a href="dropcaps.html"><i class="far fa-closed-captioning me-2"></i>Dropcaps</a></li>
-                                                    <li><a href="forms.html"><i class="fab fa-wpforms me-2"></i>Forms</a></li>
-                                                    <li><a href="font-icons.html"><i class="far fa-check-square me-2"></i>Font Icons</a></li>
-                                                    <li><a href="google-map.html"><i class="fas fa-map-marker-alt me-2"></i>Google Map</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="col-lg-3 col-sm-12">
-                                                <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 03</span>
-                                                <ul>
-                                                    <li><a href="grid-system.html"><i class="fas fa-th me-2"></i>Grid System</a></li>
-                                                    <li><a href="highlights.html"><i class="fas fa-highlighter me-2"></i>Highlights</a></li>
-                                                    <li><a href="icon-with-text.html"><i class="fab fa-fonticons-fi me-2"></i>Icon With Text</a></li>
-                                                    <li><a href="list-styles.html"><i class="fas fa-list-ul me-2"></i>List Styles</a></li>
-                                                    <li><a href="media-object.html"><i class="fas fa-photo-video me-2"></i>Media Object</a></li>
-                                                    <li><a href="modal.html"><i class="fas fa-expand me-2"></i>Modal</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="col-lg-3 col-sm-12">
-                                                <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 04</span>
-                                                <ul>
-                                                    <li><a href="pagination.html"><i class="far fa-caret-square-right me-2"></i>Pagination</a></li>
-                                                    <li><a href="progress-bar.html"><i class="fas fa-tasks me-2"></i>Progress Bars</a></li>
-                                                    <li><a href="tables.html"><i class="fas fa-table me-2"></i>Tables</a></li>
-                                                    <li><a href="tabs.html"><i class="fas fa-sliders-h me-2"></i>Tabs</a></li>
-                                                    <li><a href="typography.html"><i class="fas fa-text-height me-2"></i>Typography</a></li>
-                                                    <li><a href="videos.html"><i class="fas fa-video me-2"></i>Videos</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
-                                <!-- end menu area -->
-                                <!-- start attribute navigation -->
-                                <div class="attr-nav align-items-lg-center ms-auto">
-                                    <ul>
-                                        <li class="search"><a href="#!"><i class="fas fa-search text-white"></i></a></li>
-                                        <li class="d-none d-xl-inline-block"><a href="contact.html" class="butn white-hover sm">Get A Quote</a></li>
-                                    </ul>
-                                </div>
-                                <!-- end attribute navigation -->
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+										@if (!string.IsNullOrEmpty(Context.Session.GetString("Email")))
+										{
+											<li class="profile">
+												<a asp-controller="user" asp-action="profile"><i class="fas fa-user text-white"></i></a>
+											</li>
+											<li class="d-none d-xl-inline-block">
+												<a asp-controller="user" asp-action="Logout" class="butn white-hover sm">Logout</a>
+											</li>
+										}
+										else
+										{
+											<li class="d-none d-xl-inline-block">
+												<a asp-controller="user" asp-action="signIn" class="butn white-hover sm">Login</a>
+											</li>
+										}
+									</ul>
+								</div>
+								<!-- end attribute navigation -->
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
 	</div>
-        <main role="main">
-            @RenderBody()
-        </main>
+	<main role="main">
+		@RenderBody()
+	</main>
+
+	<div>
+		<!-- FOOTER
+		================================================== -->
+		<footer>
+			<div class="container">
+				<div class="row mt-n2-6">
+					<div class="col-md-6 col-lg-6 col-xl-4 mt-2-6">
+						<div class="pe-md-5">
+							<div class="footer-logo mb-1-9">
+								<a href="index.html"><img src="~/img/logos/logo-inner.png" alt="..."></a>
+							</div>
+							<p class="text-white mb-1-6 mb-lg-1-9 opacity9">We had been the maximum trusted “Health care Nutrition” guide for 25 years, & We are pleased with our wealthy history.</p>
+							<ul class="footer-social-style1">
+								<li>
+									<a href="#!"><i class="fab fa-facebook-f"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="fab fa-twitter"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="fab fa-youtube"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="fab fa-linkedin-in"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6 col-xl-2 mt-2-6">
+						<div class="ps-xl-2 ps-xxl-4">
+							<h3 class="title-font text-secondary mb-4 h4">Quick Links</h3>
+							<ul class="footer-list-style1 quick-list">
+								<li><a href="about-us.html">About Us</a></li>
+								<li><a href="our-team.html">Our Team</a></li>
+								<li><a href="our-services.html">Services</a></li>
+								<li><a href="blog-list.html">Blog</a></li>
+								<li><a href="contact.html">Contact Us</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6 col-xl-3 mt-2-6">
+						<div class="ps-xl-4 ps-xxl-5">
+							<h3 class="title-font text-secondary mb-4 h4">Opening Hours</h3>
+							<ul class="footer-hour-list quick-hours">
+								<li>
+									<i class="ti-time text-white"></i>
+									<div>
+										<h4 class="h6 text-white">Monday - Friday</h4>
+										<p class="mb-0 text-white display-30">8:00 AM - 5:00 PM</p>
+									</div>
+								</li>
+								<li>
+									<i class="ti-time text-white"></i>
+									<div>
+										<h4 class="h6 text-white">Saturday</h4>
+										<p class="mb-0 text-white display-30">9:00 AM - 4:00 PM</p>
+									</div>
+								</li>
+								<li>
+									<i class="ti-time text-white"></i>
+									<div>
+										<h4 class="h6 text-white">Sunday</h4>
+										<p class="mb-0 text-white display-30">Closed</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6 col-xl-3 mt-2-6">
+						<div>
+							<h3 class="title-font text-secondary mb-4 h4">Get In Touch</h3>
+							<p class="text-white mb-1-6 mb-lg-1-9 opacity9">Lorem ipsum dolor sit amet,adipiscing elit. Sed lorem quis venenatis euismod.</p>
+							<form class="quform newsletter-form w-90 w-sm-100" action="quform/newsletter-two.php" method="post" enctype="multipart/form-data" onclick="">
+								<div class="quform-elements position-relative">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="quform-element mb-0">
+												<div class="quform-input">
+													<input class="form-control news-box" id="email_address" type="text" name="email_address" placeholder="Enter Your Email">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="quform-submit-inner inner-button">
+												<button class="newsletter-btn bg-primary" type="submit"><span>Subscribe</span></button>
+											</div>
+											<div class="quform-loading-wrap text-start"><span class="quform-loading"></span></div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bar">
+				<div class="container">
+					<div class="text-center">
+						<p class="d-inline-block text-white mb-0 display-30 display-lg-29">&copy; <span class="current-year"></span> Lifestyle Powered By <a href="#!" class="text-secondary white-hover">Chitrakoot Web</a></p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+	</div>
 
 
-    <!-- FOOTER
-    ================================================== -->
-    <footer>
-        <div class="container">
-            <div class="row mt-n2-6">
-                <div class="col-md-6 col-lg-6 col-xl-4 mt-2-6">
-                    <div class="pe-md-5">
-                        <div class="footer-logo mb-1-9">
-                            <a href="index.html"><img src="~/img/logos/logo-inner.png" alt="..."></a>
-                        </div>
-                        <p class="text-white mb-1-6 mb-lg-1-9 opacity9">We had been the maximum trusted “Health care Nutrition” guide for 25 years, & We are pleased with our wealthy history.</p>
-                        <ul class="footer-social-style1">
-                            <li>
-                                <a href="#!"><i class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li>
-                                <a href="#!"><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#!"><i class="fab fa-youtube"></i></a>
-                            </li>
-                            <li>
-                                <a href="#!"><i class="fab fa-linkedin-in"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-2 mt-2-6">
-                    <div class="ps-xl-2 ps-xxl-4">
-                        <h3 class="title-font text-secondary mb-4 h4">Quick Links</h3>
-                        <ul class="footer-list-style1 quick-list">
-                            <li><a href="about-us.html">About Us</a></li>
-                            <li><a href="our-team.html">Our Team</a></li>
-                            <li><a href="our-services.html">Services</a></li>
-                            <li><a href="blog-list.html">Blog</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 mt-2-6">
-                    <div class="ps-xl-4 ps-xxl-5">
-                        <h3 class="title-font text-secondary mb-4 h4">Opening Hours</h3>
-                        <ul class="footer-hour-list quick-hours">
-                            <li>
-                                <i class="ti-time text-white"></i>
-                                <div>
-                                    <h4 class="h6 text-white">Monday - Friday</h4>
-                                    <p class="mb-0 text-white display-30">8:00 AM - 5:00 PM</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="ti-time text-white"></i>
-                                <div>
-                                    <h4 class="h6 text-white">Saturday</h4>
-                                    <p class="mb-0 text-white display-30">9:00 AM - 4:00 PM</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="ti-time text-white"></i>
-                                <div>
-                                    <h4 class="h6 text-white">Sunday</h4>
-                                    <p class="mb-0 text-white display-30">Closed</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 mt-2-6">
-                    <div>
-                        <h3 class="title-font text-secondary mb-4 h4">Get In Touch</h3>
-                        <p class="text-white mb-1-6 mb-lg-1-9 opacity9">Lorem ipsum dolor sit amet,adipiscing elit. Sed lorem quis venenatis euismod.</p>
-                        <form class="quform newsletter-form w-90 w-sm-100" action="quform/newsletter-two.php" method="post" enctype="multipart/form-data" onclick="">
-                            <div class="quform-elements position-relative">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="quform-element mb-0">
-                                            <div class="quform-input">
-                                                <input class="form-control news-box" id="email_address" type="text" name="email_address" placeholder="Enter Your Email">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="quform-submit-inner inner-button">
-                                            <button class="newsletter-btn bg-primary" type="submit"><span>Subscribe</span></button>
-                                        </div>
-                                        <div class="quform-loading-wrap text-start"><span class="quform-loading"></span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bar">
-            <div class="container">
-                <div class="text-center">
-                    <p class="d-inline-block text-white mb-0 display-30 display-lg-29">&copy; <span class="current-year"></span> Lifestyle Powered By <a href="#!" class="text-secondary white-hover">Chitrakoot Web</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
-    </div>
+	<!-- start scroll to top -->
+	<a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+	<!-- end scroll to top -->
+	<!-- jQuery -->
+	<script src="~/js/jquery.min.js"></script>
 
-    <!-- BUY TEMPLATE
-    ================================================== -->
-    <div class="buy-theme alt-font d-none d-lg-inline-block"><a href="https://wrapbootstrap.com/theme/lifestyle-nutrition-health-diet-theme-WB07X4454" target="_blank"><i class="fas fa-cart-plus"></i><span>Buy Template</span></a></div>
+	<!-- popper js -->
+	<script src="~/js/popper.min.js"></script>
 
-    <div class="all-demo alt-font d-none d-lg-inline-block"><a href="https://www.chitrakootweb.com/contact.html" target="_blank"><i class="far fa-envelope"></i><span>Quick Question?</span></a></div>
+	<!-- bootstrap -->
+	<script src="~/js/bootstrap.min.js"></script>
 
-    <!-- start scroll to top -->
-    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
-    <!-- end scroll to top -->
-    <!-- jQuery -->
-    <script src="~/js/jquery.min.js"></script>
+	<!-- core.min.js -->
+	<script src="~/js/core.min.js"></script>
 
-    <!-- popper js -->
-    <script src="~/js/popper.min.js"></script>
+	<!-- search -->
+	<script src="~/search/search.js"></script>
 
-    <!-- bootstrap -->
-    <script src="~/js/bootstrap.min.js"></script>
+	<!-- custom scripts -->
+	<script src="~/js/main.js"></script>
 
-    <!-- core.min.js -->
-    <script src="~/js/core.min.js"></script>
+	<!-- form plugins js -->
+	<script src="~/quform/js/plugins.js"></script>
 
-    <!-- search -->
-    <script src="~/search/search.js"></script>
+	<!-- form scripts js -->
+	<script src="~/quform/js/scripts.js"></script>
 
-    <!-- custom scripts -->
-    <script src="~/js/main.js"></script>
-
-    <!-- form plugins js -->
-    <script src="~/quform/js/plugins.js"></script>
-
-    <!-- form scripts js -->
-    <script src="~/quform/js/scripts.js"></script>
-
-    <!-- all js include end -->
-    @await RenderSectionAsync("Scripts", required: false)
+	<!-- all js include end -->
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

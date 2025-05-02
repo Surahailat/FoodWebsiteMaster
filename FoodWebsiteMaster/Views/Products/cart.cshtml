@@ -1,0 +1,89 @@
+﻿@model IEnumerable<FoodWebsiteMaster.Models.CartItem>
+
+<head>
+    <link href="~/css/cart.css" rel="stylesheet" />
+</head>
+
+<div class="container my-5">
+    <h2 class="cart-title mb-4">Your cart</h2>
+    <div class="table-responsive mb-4">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>IMAGE</th>
+                    <th>NAME</th>
+                    <th>PRICE</th>
+                    <th>QUANTITY</th>
+                    <th>TOTAL</th>
+                    <th>REMOVE</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@item.Image" class="cart-img" alt="Product Image" style="width: 80px; height: 80px;" />
+                            </td>
+                            <td>
+                                @item.Product.Name
+                                <br />
+                                <small class="text-muted">@item.Product.Description</small> <!-- إذا حابة تعرضي وصف المنتج -->
+                            </td>
+                            <td>
+                                $@item.Price.ToString("F2")
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <form asp-action="DecreaseQuantity" method="post" asp-route-id="@item.Id" class="d-inline">
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm">-</button>
+                                    </form>
+                                    <span class="mx-2">@item.Quantity</span>
+                                    <form asp-action="IncreaseQuantity" method="post" asp-route-id="@item.Id" class="d-inline">
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm">+</button>
+                                    </form>
+                                </div>
+                            </td>
+                            <td>
+                                $@(item.Price * item.Quantity).ToString("F2")
+                            </td>
+                            <td>
+                                <form asp-action="RemoveItem" method="post" asp-route-id="@item.Id" class="d-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm">🗑️</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">Your cart is empty.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <textarea class="form-control" rows="3" placeholder="Order special instructions"></textarea>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+            <div class="checkout-box">
+                <p class="subtotal-text">
+                    Subtotal: $
+                    @{
+                        var subtotal = Model?.Sum(item => item.Quantity * item.Price) ?? 0;
+                        @subtotal.ToString("F2")
+                        ;
+                    }
+                </p>
+                <p class="text-muted">Taxes and shipping calculated at checkout</p>
+                <button class="btn btn-dark w-100">Proceed to checkout</button>
+            </div>
+        </div>
+    </div>
+</div>

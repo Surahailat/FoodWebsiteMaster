@@ -1,0 +1,278 @@
+﻿@model FoodWebsiteMaster.Models.User
+
+
+
+
+<body>
+
+	<section class="profilecont" style="padding: 0px ;    background: white;">
+		<!-- Header -->
+		<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+			 style="background-color: #4C050B; min-height: 500px; background-image: url(https://raw.githack.com/creativetimofficial/argon-dashboard/master/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+			<div class="container-fluid d-flex align-items-center">
+				<div class="row">
+					<div class="col-lg-7 col-md-10 text-center" style="margin-left: 55%;">
+						<h1 class="display-2 text-white">Hello @Context.Session.GetString("Username")</h1>
+
+						<a href="#!" class="btn btn-info">Go Home</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- Tabs Navigation -->
+		<ul class="nav nav-tabs" id="profileTabs" role="tablist" style="padding-top: 3%; padding-left: 1%;">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="account" aria-selected="true">
+					My Account
+				</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">
+					History
+				</button>
+			</li>
+		</ul>
+
+		<!-- Tabs Content -->
+		<div class="tab-content" id="profileTabsContent">
+			<!-- My Account Content -->
+			<div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+				<!-- Page content -->
+				<div class="container-fluid mt--7">
+					<div class="row">
+						<div class="col-xl-12 order-xl-1">
+							<div class="card shadow" style="border: none;box-shadow: none !important;padding:3%">
+								<div class="card-header bg-white border-0">
+									<div class="row align-items-center">
+										<div class="col-8">
+											<h3 class="mb-0">MY ACCOUNT</h3>
+										</div>
+										<div class="col-4 text-right">
+											<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+												Settings
+											</button>                                    <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
+												Reset Password
+											</button>
+										</div>
+									</div>
+								</div>
+								<!-- ✅ Settings Modal -->
+								<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="settingsModalLabel">User Information</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<form method="post" asp-action="UpdateProfile">
+													<h6>User Information</h6>
+													<div class="row mb-3">
+														<div class="col-md-6">
+															<label>Username</label>
+															<input type="text" class="form-control" name="Username" value="@Model.Username">
+														</div>
+														<div class="col-md-6">
+															<label>Email address</label>
+															<input type="email" class="form-control" name="Email" value="@Model.Email" readonly>
+														</div>
+														<div class="col-md-6">
+															<label>Date of Birth</label>
+															<input type="text" class="form-control" name="DateOfBirth" placeholder="mm/dd/yyyy" value="@Model.DateOfBirth">
+														</div>
+														<div class="col-md-6">
+															<label>Gender</label>
+															<input type="text" class="form-control" name="Gender" value="@Model.Gender">
+														</div>
+														<div class="col-md-6">
+															<label>Weight (kg)</label>
+															<input type="text" class="form-control" value="@Model.Weight" name="Weight">
+														</div>
+														<div class="col-md-6">
+															<label>Height (cm)</label>
+															<input type="text" class="form-control" value="@Model.Height" name="Height">
+														</div>
+													</div>
+
+													<hr>
+
+													<h6>Contact Information</h6>
+													<div class="row">
+														<div class="col-md-4">
+															<label>Phone</label>
+															<input type="text" class="form-control" name="Phone" value="@Model.Phone">
+														</div>
+														<div class="col-md-4">
+															<label>City</label>
+															<input type="text" class="form-control" name="City" value="@Model.City">
+														</div>
+														<div class="col-md-4">
+															<label>Country</label>
+															<input type="text" class="form-control" name="Country" value="@Model.Country">
+														</div>
+													</div>
+													<br />
+													<button type="submit" class="btn btn-primary">Save</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-body" style="background: white;">
+									<form>
+										<h6 class="heading-small text-muted mb-4">User information</h6>
+										<div class="pl-lg-4">
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="form-group focused">
+														<label class="form-control-label" for="input-username">Username</label>
+														<input type="text" id="input-username" class="form-control form-control-alternative"
+															   placeholder="Username" value="@Model.Username" readonly>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label" for="input-email">Email address</label>
+														<input type="email" id="input-email" class="form-control form-control-alternative"
+															   placeholder="jesse@example.com" value="@Model.Email" readonly>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="form-group focused">
+														<label class="form-control-label" for="birthdate">Date of Birth</label>
+														<input type="date" id="birthdate" class="form-control form-control-alternative" placeholder="18/10/2000" value="@Model.DateOfBirth" readonly>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group focused">
+														<label class="form-control-label" for="gender">Gender</label>
+														<input id="gender" class="form-control form-control-alternative" placeholder="Male" value="@Model.Gender" readonly>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="form-group focused">
+														<label class="form-control-label" for="Weight">Weight (kg)</label>
+														<input type="number" id="Weight" class="form-control form-control-alternative"
+															   placeholder="50 kg" value="@Model.Weight" readonly>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group focused">
+														<label class="form-control-label" for="height">Height (cm)</label>
+														<input type="number" id="height" class="form-control form-control-alternative"
+															   placeholder="170 cm" value="@Model.Height" readonly>
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+
+										<hr class="my-4">
+
+										<!-- Contact -->
+										<h6 class="heading-small text-muted mb-4">Contact information</h6>
+										<div class="pl-lg-4">
+											<div class="row">
+												<div class="col-lg-4">
+													<div class="form-group focused">
+														<label class="form-control-label" for="input-city">Phone</label>
+														<input type="tel" id="input-city" class="form-control form-control-alternative"
+															   placeholder="+962" value="@Model.Phone" readonly>
+													</div>
+												</div>
+												<div class="col-lg-4">
+													<div class="form-group focused">
+														<label class="form-control-label" for="input-City">City</label>
+														<input type="text" id="input-City" class="form-control form-control-alternative"
+															   placeholder="Jordan" value="@Model.City" readonly>
+													</div>
+												</div>
+												<div class="col-lg-4">
+													<div class="form-group focused">
+														<label class="form-control-label" for="input-country">Country</label>
+														<input type="text" id="input-country" class="form-control form-control-alternative"
+															   placeholder="Amman" value="@Model.Country" readonly>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	</section>
+
+	<!-- Reset Password Modal -->
+	<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-warning text-white">
+					<h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form method="post" asp-action="ChangePassword">
+						<div class="mb-3">
+							<label for="newPassword" class="form-label">Current password</label>
+							<input type="password" class="form-control" name="CurrentPassword" placeholder="Enter current password">
+						</div>
+						<div class="mb-3">
+							<label for="newPassword" class="form-label">New Password</label>
+							<input type="password" class="form-control" name="NewPassword" placeholder="Enter new password">
+						</div>
+						<div class="mb-3">
+							<label for="confirmPassword" class="form-label">Confirm Password</label>
+							<input type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm new password">
+						</div>
+						<br />
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-warning">Save Changes</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<!-- History Content -->
+	<div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+		<h4 class="mt-4">Activity History</h4>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>2025-04-20</td>
+					<td>Changed Password</td>
+				</tr>
+				<tr>
+					<td>2025-04-18</td>
+					<td>Updated Weight</td>
+				</tr>
+				<!-- زيدي سجلات اكثر اذا بتحبي -->
+			</tbody>
+		</table>
+	</div>
+	</div>
+
+</body>
+

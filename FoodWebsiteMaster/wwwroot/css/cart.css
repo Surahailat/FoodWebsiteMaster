@@ -1,0 +1,42 @@
+﻿body {
+    background-color: #f7fafa;
+    font-family: 'Arial', sans-serif;
+}
+
+.cart-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.cart-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.gift-wrap {
+    background-color: #4b4b4b;
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+    .gift-wrap button {
+        background-color: #001f3f;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+    }
+
+.checkout-box {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.subtotal-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+}

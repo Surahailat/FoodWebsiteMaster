@@ -1,0 +1,283 @@
+﻿
+<head>
+
+	<link rel="stylesheet" href="~/css/style.css">
+	<link rel="stylesheet" href="~/css/colors/green.css" id="colors">
+
+
+</head>
+
+<body>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+
+
+
+
+		<!-- Content
+		================================================== -->
+		<div class="container">
+
+			<!-- Products -->
+			<div class="twelve columns left-sidebar-class">
+
+				<!-- Ordering -->
+				<div class="ordering">
+					<select class="chosen-select-no-single">
+						<option value="menu_order">Default Sorting</option>
+						<option value="popularity">Sort by Popularity</option>
+						<option value="rating">Sort by Average Rating</option>
+						<option value="date">Sort by Newness</option>
+						<option value="price">Sort by Price: Low to High</option>
+						<option value="price-desc">Sort by Price: High to Low</option>
+					</select>
+				</div>
+				<div class="clearfix"></div>
+
+
+				<!-- Product #1 -->
+				<div class="four shop columns">
+					<figure class="product">
+
+						<div class="mediaholder">
+							<a href="product-page.html">
+								<img alt="" src="images/shop_item_01.jpg" />
+							</a>
+							<a asp-controller="Main" asp-action="AddToCart" class="product-button"><i class="fa fa-shopping-cart"></i></a>
+						</div>
+
+						<a href="product-page.html">
+							<section>
+								<span class="product-category">Spices</span>
+								<h5>Cardamom Pods</h5>
+								<span class="product-price">$2.99</span>
+							</section>
+						</a>
+					</figure>
+				</div>
+
+				<!-- Product #2 -->
+				<div class="four shop columns">
+					<figure class="product">
+
+						<div class="mediaholder">
+							<a href="product-page.html">
+								<img alt="" src="images/shop_item_02.jpg" />
+							</a>
+							<a href="#" class="product-button"><i class="fa fa-shopping-cart"></i></a>
+						</div>
+
+						<a href="product-page.html">
+							<section>
+								<span class="product-category">Spices</span>
+								<h5>Mixed Herbs</h5>
+								<span class="product-price">$2.99</span>
+							</section>
+						</a>
+					</figure>
+				</div>
+
+				<!-- Product #3 -->
+				<div class="four shop columns">
+					<figure class="product">
+
+						<div class="mediaholder">
+							<a href="product-page.html">
+								<img alt="" src="images/shop_item_03.jpg" />
+							</a>
+							<a href="#" class="product-button"><i class="fa fa-shopping-cart"></i></a>
+						</div>
+
+						<a href="product-page.html">
+							<section>
+								<span class="product-category">Spices</span>
+								<h5>Chilli Powder</h5>
+								<span class="product-price">$2.99</span>
+							</section>
+						</a>
+					</figure>
+				</div>
+
+				<!-- Product #4 -->
+				<div class="four shop columns">
+					<figure class="product">
+
+						<div class="mediaholder">
+							<a href="product-page.html">
+								<img alt="" src="images/shop_item_04.jpg" />
+							</a>
+							<a href="#" class="product-button"><i class="fa fa-shopping-cart"></i></a>
+						</div>
+
+						<a href="product-page.html">
+							<section>
+								<span class="product-category">Spices</span>
+								<h5>Black Peppercorns</h5>
+								<span class="product-price">$2.99</span>
+							</section>
+						</a>
+					</figure>
+				</div>
+
+				<!-- Product #5 -->
+				<div class="four shop columns">
+					<figure class="product">
+
+						<div class="mediaholder">
+							<a href="product-page.html">
+								<img alt="" src="images/shop_item_05.jpg" />
+							</a>
+							<a href="#" class="product-button"><i class="fa fa-shopping-cart"></i></a>
+						</div>
+
+						<a href="product-page.html">
+							<section>
+								<span class="product-category">Spices</span>
+								<h5>Cumin Seeds</h5>
+								<span class="product-price">$2.99</span>
+							</section>
+						</a>
+					</figure>
+				</div>
+
+				<!-- Product #6 -->
+				<div class="four shop columns">
+					<figure class="product">
+
+						<div class="mediaholder">
+							<a href="product-page.html">
+								<img alt="" src="images/shop_item_06.jpg" />
+							</a>
+							<a href="#" class="product-button"><i class="fa fa-shopping-cart"></i></a>
+						</div>
+
+						<a href="product-page.html">
+							<section>
+								<span class="product-category">Spices</span>
+								<h5>Garlic Granules</h5>
+								<span class="product-price">$2.99</span>
+							</section>
+						</a>
+					</figure>
+				</div>
+
+				<div class="clearfix"></div>
+				<div class="margin-top-40"></div>
+
+				<!-- Pagination -->
+				<div class="pagination-container masonry">
+					<nav class="pagination">
+						<ul>
+							<li><a href="#" class="current-page">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+						</ul>
+					</nav>
+
+					<nav class="pagination-next-prev">
+						<ul>
+							<li><a href="#" class="prev"></a></li>
+							<li><a href="#" class="next"></a></li>
+						</ul>
+					</nav>
+				</div>
+
+			</div>
+
+
+			<!-- Sidebar
+			================================================== -->
+			<div class="four columns">
+
+				<!-- Search Form -->
+				<div class="widget search-form">
+					<nav class="search">
+						<form action="#" method="get">
+							<button><i class="fa fa-search"></i></button>
+							<input class="search-field" type="text" placeholder="Search for products" value="" />
+						</form>
+					</nav>
+					<div class="clearfix"></div>
+				</div>
+
+
+				<!-- Cart -->
+				<div class="widget">
+					<h4 class="headline">Cart</h4>
+					<span class="line margin-bottom-30"></span>
+					<div class="clearfix"></div>
+
+					<div class="widget_shopping_cart_content">
+						<ul class="product_list_widget">
+
+							<li>
+								<a href="#" class="image"><img src="images/shop_item_02a.jpg" alt=""></a>
+								<div class="product_title">
+									<a href="#">Mixed Herbs</a>
+									<span class="quantity">1 × <span class="amount">$2.99</span></span>
+								</div>
+							</li>
+
+						</ul>
+
+						<p class="total">
+							<strong>Subtotal:</strong>
+							<span class="amount">$2.99</span>
+						</p>
+
+						<span class="buttons">
+							<a href="#" class="button">View Cart</a>
+							<a href="#" class="button color">Checkout</a>
+						</span>
+					</div>
+				</div>
+
+
+				<!-- Widget -->
+				<div class="widget">
+					<h4 class="headline">Filter by Price</h4>
+					<span class="line margin-bottom-30"></span>
+					<div class="clearfix"></div>
+
+					<div id="price-range">
+						<div class="padding-range"><div id="slider-range"></div></div>
+						<label for="amount">Price:</label>
+						<input type="text" id="amount" />
+						<a href="#" class="button color">Filter</a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- Container / End -->
+
+
+		<div class="margin-top-5"></div>
+
+	</div>
+
+
+
+
+	<!-- Java Script
+	================================================== -->
+	<script src="~/scripts/jquery-1.11.0.min.js"></script>
+	<script src="~/scripts/jquery-migrate-1.2.1.min.js"></script>
+	<script src="~/scripts/jquery.superfish.js"></script>
+	<script src="~/scripts/jquery.royalslider.min.js"></script>
+	<script src="~/scripts/responsive-nav.js"></script>
+	<script src="~/scripts/hoverIntent.js"></script>
+	<script src="~/scripts/isotope.pkgd.min.js"></script>
+	<script src="~/scripts/chosen.jquery.min.js"></script>
+	<script src="~/scripts/jquery.tooltips.min.js"></script>
+	<script src="~/scripts/jquery.magnific-popup.min.js"></script>
+	<script src="~/scripts/jquery.pricefilter.js"></script>
+	<script src="~/scripts/custom.js"></script>
+
+
+
+</body>
