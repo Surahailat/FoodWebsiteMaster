@@ -1,6 +1,5 @@
 ﻿@model FoodWebsiteMaster.Models.HomePageViewModel
 
-
 <!-- CSS for modal -->
 <style>
     .modal {
@@ -32,22 +31,37 @@
         <section class="p-0">
             <div class="container-fluid px-0 z-index-2 position-relative">
                 <div class="slider-fade-02 owl-carousel owl-theme w-100">
-                    <div class="item bg-img cover-background pt-6 pb-10 pt-sm-6 pb-sm-14 py-md-16 py-lg-20 py-xxl-24 dark-overlay" data-overlay-dark="4" data-background="https://images.pexels.com/photos/14542196/pexels-photo-14542196.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
-                        <div class="container pt-6 pt-md-0 my-xxl-4">
-                            <div class="row justify-content-end text-end align-items-center">
-                                <div class="col-md-10 col-lg-8 col-xl-7">
-                                    <h1 class="display-17 display-sm-11 display-md-9 display-lg-8 display-xl-3 display-xxl-2 mb-lg-3 text-white">Building  <span class="text-primary">Strength </span>from Within.</h1>
-                                    <p class="lead opacity7 text-white mb-1-6 mb-md-2-2">
-                                        A dedicated platform for healthy recipes tailored for individuals with diabetes
-                                        and hypertension. Discover balanced and delicious meal options to support your
-                                        health and lifestyle.
-                                    </p>
-                                    <a href="contact.html" class="butn-style01 secondary"><span>Get Started Now</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item bg-img cover-background pt-6 pb-10 pt-sm-6 pb-sm-14 py-md-16 py-lg-20 py-xxl-24 dark-overlay" data-overlay-dark="4" data-background="https://images.pexels.com/photos/6740849/pexels-photo-6740849.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+                    @* <div class="item position-relative pt-6 pb-10 pt-sm-6 pb-sm-14 py-md-16 py-lg-20 py-xxl-24"> *@
+
+                    @*     <!-- خلفية الفيديو --> *@
+                    @*     <video autoplay muted loop playsinline class="position-absolute w-100 h-100 object-fit-cover z-n1"> *@
+                    @*         <source src="https://videos.pexels.com/video-files/4519060/4519060-hd_1920_1080_25fps.mp4" type="video/mp4"> *@
+                    @*         Your browser does not support the video tag. *@
+                    @*     </video> *@
+
+                    @*     <!-- طبقة التعتيم --> *@
+                    @*     <div class="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-40 z-0"></div> *@
+
+                    @*     <!-- المحتوى --> *@
+                    @*     <div class="container pt-6 pt-md-0 my-xxl-4 position-relative z-1"> *@
+                    @*         <div class="row justify-content-end text-end align-items-center"> *@
+                    @*             <div class="col-md-10 col-lg-8 col-xl-7"> *@
+                    @*                 <h1 class="display-17 display-sm-11 display-md-9 display-lg-8 display-xl-3 display-xxl-2 mb-lg-3 text-white"> *@
+                    @*                     Building <span class="text-primary">Strength</span> from Within. *@
+                    @*                 </h1> *@
+                    @*                 <p class="lead opacity7 text-white mb-1-6 mb-md-2-2"> *@
+                    @*                     A dedicated platform for healthy recipes tailored for individuals with diabetes *@
+                    @*                     and hypertension. Discover balanced and delicious meal options to support your *@
+                    @*                     health and lifestyle. *@
+                    @*                 </p> *@
+                    @*                 <a href="contact.html" class="butn-style01 secondary"><span>Get Started Now</span></a> *@
+                    @*             </div> *@
+                    @*         </div> *@
+                    @*     </div> *@
+
+                    @* </div> *@
+
+                    <div class="item bg-img cover-background pt-6 pb-10 pt-sm-6 pb-sm-14 py-md-16 py-lg-20 py-xxl-24 " style="height: 700px;"  data-background="https://raw.githubusercontent.com/Surahailat/image/refs/heads/main/Screenshot%202025-05-10%20134729.webp">
                         <div class="container pt-6 pt-md-0 my-xxl-4">
                             <div class="row justify-content-end text-end align-items-center">
                                 <div class="col-md-10 col-lg-8 col-xl-7">
@@ -62,21 +76,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item bg-img cover-background pt-6 pb-10 pt-sm-6 pb-sm-14 py-md-16 py-lg-20 py-xxl-24 dark-overlay" data-overlay-dark="4" data-background="https://images.pexels.com/photos/15801885/pexels-photo-15801885/free-photo-of-cake-with-fruit.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
-                        <div class="container pt-6 pt-md-0 my-xxl-4">
-                            <div class="row justify-content-end text-end align-items-center">
-                                <div class="col-md-10 col-lg-8 col-xl-7">
-                                    <h1 class="display-17 display-sm-11 display-md-9 display-lg-8 display-xl-3 display-xxl-2 mb-lg-3 text-white">Where Health Meets  <span class="text-primary">Happiness.</span></h1>
-                                    <p class="lead opacity7 text-white mb-1-6 mb-md-2-2">
-                                        A dedicated platform for healthy recipes tailored for individuals with diabetes
-                                        and hypertension. Discover balanced and delicious meal options to support your
-                                        health and lifestyle.
-                                    </p>
-                                    <a href="contact.html" class="butn-style01 secondary"><span>Get Started Now</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @* <div class="item bg-img cover-background pt-6 pb-10 pt-sm-6 pb-sm-14 py-md-16 py-lg-20 py-xxl-24 dark-overlay" data-overlay-dark="4" data-background="https://images.pexels.com/photos/15801885/pexels-photo-15801885/free-photo-of-cake-with-fruit.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"> *@
+                    @*     <div class="container pt-6 pt-md-0 my-xxl-4"> *@
+                    @*         <div class="row justify-content-end text-end align-items-center"> *@
+                    @*             <div class="col-md-10 col-lg-8 col-xl-7"> *@
+                    @*                 <h1 class="display-17 display-sm-11 display-md-9 display-lg-8 display-xl-3 display-xxl-2 mb-lg-3 text-white">Where Health Meets  <span class="text-primary">Happiness.</span></h1> *@
+                    @*                 <p class="lead opacity7 text-white mb-1-6 mb-md-2-2"> *@
+                    @*                     A dedicated platform for healthy recipes tailored for individuals with diabetes *@
+                    @*                     and hypertension. Discover balanced and delicious meal options to support your *@
+                    @*                     health and lifestyle. *@
+                    @*                 </p> *@
+                    @*                 <a href="contact.html" class="butn-style01 secondary"><span>Get Started Now</span></a> *@
+                    @*             </div> *@
+                    @*         </div> *@
+                    @*     </div> *@
+                    @* </div> *@
                 </div>
             </div>
         </section>
@@ -176,71 +190,6 @@
                         </div>
                     </div>
                 }
-                @* <div class="mt-10"> *@
-                @*         <div class="card-style1"> *@
-                @*             <img src="~/img/services/service-02.jpg" alt="..." class="border-top-radius-10"> *@
-                @*             <div class="card-body p-0"> *@
-                @*                 <div class="position-relative main-title overflow-hidden"> *@
-                @*                     <h3 class="title"><a href="personalized-nutrition.html">Personalized Nutrition</a></h3> *@
-                @*                 </div> *@
-                @*                 <p class="text-white opacity9 mb-0">Our nutrition team love the benefits of exercise and healthy food.</p> *@
-                @*                 <div class="card-btn-part"><a class="card-butn" href="personalized-nutrition.html">More Details <i class="ti-arrow-right align-middle ms-1"></i></a></div> *@
-                @*             </div> *@
-                @*         </div> *@
-                @*     </div> *@
-
-                @*     <div class="mt-10"> *@
-                @*         <div class="card-style1"> *@
-                @*             <img src="~/img/services/service-03.jpg" alt="..." class="border-top-radius-10"> *@
-                @*             <div class="card-body p-0"> *@
-                @*                 <div class="position-relative main-title overflow-hidden"> *@
-                @*                     <h3 class="title"><a href="fitness-performance.html">Fitness Performance</a></h3> *@
-                @*                 </div> *@
-                @*                 <p class="text-white opacity9 mb-0">Our nutrition team love the benefits of exercise and healthy food.</p> *@
-                @*                 <div class="card-btn-part"><a class="card-butn" href="fitness-performance.html">More Details <i class="ti-arrow-right align-middle ms-1"></i></a></div> *@
-                @*             </div> *@
-                @*         </div> *@
-                @*     </div> *@
-
-                @*     <div class="mt-10"> *@
-                @*         <div class="card-style1"> *@
-                @*             <img src="~/img/services/service-04.jpg" alt="..." class="border-top-radius-10"> *@
-                @*             <div class="card-body p-0"> *@
-                @*                 <div class="position-relative main-title overflow-hidden"> *@
-                @*                     <h3 class="title"><a href="healthy-daily-life.html">Healthy Daily Life</a></h3> *@
-                @*                 </div> *@
-                @*                 <p class="text-white opacity7 mb-0">Our nutrition team love the benefits of exercise and healthy food.</p> *@
-                @*                 <div class="card-btn-part"><a class="card-butn" href="healthy-daily-life.html">More Details <i class="ti-arrow-right align-middle ms-1"></i></a></div> *@
-                @*             </div> *@
-                @*         </div> *@
-                @*     </div> *@
-
-                @*     <div class="mt-10"> *@
-                @*         <div class="card-style1"> *@
-                @*             <img src="~/img/services/service-05.jpg" alt="..." class="border-top-radius-10"> *@
-                @*             <div class="card-body p-0"> *@
-                @*                 <div class="position-relative main-title overflow-hidden"> *@
-                @*                     <h3 class="title"><a href="support-motivation.html">Support & Motivation</a></h3> *@
-                @*                 </div> *@
-                @*                 <p class="text-white opacity7 mb-0">Our nutrition team love the benefits of exercise and healthy food.</p> *@
-                @*                 <div class="card-btn-part"><a class="card-butn" href="support-motivation.html">More Details <i class="ti-arrow-right align-middle ms-1"></i></a></div> *@
-                @*             </div> *@
-                @*         </div> *@
-                @*     </div> *@
-
-                @*     <div class="mt-10"> *@
-                @*         <div class="card-style1"> *@
-                @*             <img src="~/img/services/service-06.jpg" alt="..." class="border-top-radius-10"> *@
-                @*             <div class="card-body p-0"> *@
-                @*                 <div class="position-relative main-title overflow-hidden"> *@
-                @*                     <h3 class="title"><a href="weight-loss-programs.html">Weight Loss Programs</a></h3> *@
-                @*                 </div> *@
-                @*                 <p class="text-white opacity7 mb-0">Our nutrition team love the benefits of exercise and healthy food.</p> *@
-                @*                 <div class="card-btn-part"><a class="card-butn" href="weight-loss-programs.html">More Details <i class="ti-arrow-right align-middle ms-1"></i></a></div> *@
-                @*             </div> *@
-                @*         </div> *@
-                @*     </div> *@
-
             </div>
         </div>
         <div class="bg-secondary p-2-2 rounded-circle position-absolute bottom-10 left-5 d-none d-lg-block"></div>
@@ -324,7 +273,7 @@
                 <p class="mb-0 w-md-80 w-lg-70 w-xl-50 mx-auto">We connect buyers and sellers of natural, organic, environmentally sound products. We find the best suppliers and makers of natural and organic products.</p>
             </div>
             <div class="row g-xl-5 mt-n1-9">
-                @foreach (var plan in Model.Subscriptions) // Model = List<Subscription>
+                @foreach (var plan in Model.Subscriptions)
                 {
                     <div class="col-md-6 col-lg-4 mt-1-9">
                         <div class="card card-style2 border-radius-10">
@@ -346,71 +295,21 @@
                                     <li>Nutrition Strategies</li>
                                 </ul>
                                 <div class="text-center">
-                                    <a class="butn secondary" onclick="openPaymentModal(@plan.Id, @plan.Price)">Choose Plan</a>
+                                    <a class="butn secondary" style="z-index:1" onclick="openPaymentModal(@plan.Id, @plan.Price)">Choose Plan</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 }
-                <div class="col-md-6 col-lg-4 mt-1-9">
-                        <div class="card card-style2 border-radius-10">
-                            <div class="card-header bg-secondary">
-                                <h3 class="text-white mb-0 h4">Post Pregnancy</h3>
-                                <div class="pricing-box bg-primary">
-                                    <img src="~/img/icons/icon-08.png" alt="...">
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-start justify-content-center mt-3 mb-0">
-                                <h4 class="display-5 mb-0 font-weight-600">199</h4>
-                                <span class="align-self-end fw-bolder display-30 display-sm-28">$ / month</span>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-style1">
-                                    <li>Diet Recommendation</li>
-                                    <li>Motivation program</li>
-                                    <li>Weight Assessment</li>
-                                    <li>Nutrition Strategies</li>
-                                </ul>
-                                <div class="text-center">
-                                <a class="butn" >Choose Plan</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mt-1-9">
-                        <div class="card card-style2 border-radius-10">
-                            <div class="card-header">
-                                <h3 class="text-white mb-0 h4">Standard Plan</h3>
-                                <div class="pricing-box">
-                                    <img src="~/img/icons/icon-07.png" alt="...">
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-start justify-content-center mt-3 mb-0">
-                                <h4 class="display-5 mb-0 font-weight-600">99</h4>
-                                <span class="align-self-end fw-bolder display-30 display-sm-28">$ / month</span>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-style1">
-                                    <li>Diet Recommendation</li>
-                                    <li>Motivation program</li>
-                                    <li>Weight Assessment</li>
-                                    <li>Nutrition Strategies</li>
-                                </ul>
-                                <div class="text-center">
-                                    <a class="butn secondary" href="contact.html">Choose Plan</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
     <!-- Modal -->
     <div id="paymentModal" class="modal" tabindex="-1" role="dialog" style="display:none;">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="paymentForm" method="post" action="Subscribe">
+                <form id="paymentForm" method="post" asp-action="Subscribe" asp-controller="Main">
                     <div class="modal-header">
                         <h5 class="modal-title">Complete Payment</h5>
                         <button type="button" class="close" onclick="closePaymentModal()">&times;</button>
@@ -420,8 +319,26 @@
                         <input type="hidden" name="Amount" id="Amount" />
 
                         <div class="form-group">
-                            <label>Last 4 digits of your card</label>
-                            <input type="text" name="CardLast4" maxlength="4" class="form-control" required />
+                            <label>Card Number</label>
+                            <input type="text" name="CardNumber" class="form-control" placeholder="1234 5678 9012 3456" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Card Holder Name</label>
+                            <input type="text" name="CardHolderName" class="form-control" required />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Expiry Date</label>
+                                    <input type="text" name="ExpiryDate" class="form-control" placeholder="MM/YY" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>CVV</label>
+                                    <input type="text" name="CVV" class="form-control" placeholder="123" required />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -435,7 +352,25 @@
 
     <script>
         function openPaymentModal(subscriptionId, amount) {
-            console.log(subscriptionId,amount);
+        @if (Context.Session.GetInt32("UserId") == null)
+        {
+            <text>
+                    Swal.fire({
+                        title: 'Login Required',
+                        text: 'Please log in to proceed with the payment.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Login',
+                        cancelButtonText: 'Cancel',
+                        confirmButtonColor: '#57aa46'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '@Url.Action("signIn", "user")';
+                        }
+                    });
+                    return;
+            </text>
+        }
             document.getElementById('SubscriptionId').value = subscriptionId;
             document.getElementById('Amount').value = amount;
             document.getElementById('paymentModal').style.display = 'block';
@@ -443,5 +378,25 @@
         function closePaymentModal() {
             document.getElementById('paymentModal').style.display = 'none';
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+        @if (TempData["PaymentSuccess"] != null)
+        {
+            <text>
+                    Swal.fire({
+                        title: 'Payment Successful!',
+                        text: 'Your subscription has been activated successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#57aa46',
+                        timerProgressBar: true
+                    });
+            </text>
+        }
+        });
     </script>
+
+    <!-- Add SweetAlert2 CSS and JS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body> 

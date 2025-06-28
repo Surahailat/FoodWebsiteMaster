@@ -1,0 +1,92 @@
+﻿@model IEnumerable<FoodWebsiteMaster.Models.User>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+@{
+    ViewData["Title"] = "user";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>user</h1>
+
+<div class=" flex-grow-1 overflow-y-lg-auto">
+    <!-- Header -->
+    <header class="bg-surface-primary border-bottom pt-6">
+        <div class="container-fluid">
+            <div class="mb-npx">
+                <div class="row align-items-center">
+                    <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<div class="card shadow border-0 mb-7">
+
+    <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Country/City</th>
+                    <th scope="col">Gender</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>
+                            @item.Username
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td>
+                            @item.Phone
+                        </td>
+                        <td>
+                            @item.Country / @item.City
+                        </td>
+                        <td>
+                            @item.Gender
+                        </td>
+                        <td class="text-end">
+                                <a class="btn btn-sm btn-neutral" data-bs-toggle="modal" data-bs-target="#userModal-@item.Id">View</a>
+                        </td>
+                    </tr>
+                        <!-- المودال الخاص بهذا اليوزر -->
+                        <div class="modal fade" id="userModal-@item.Id" tabindex="-1" aria-labelledby="userModalLabel-@item.Id" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="userModalLabel-@item.Id">User Information</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-2"><strong>User Name:</strong> @item.Username</div>
+                                        <div class="mb-2"><strong>Email:</strong> @item.Email</div>
+                                        <div class="mb-2"><strong>Date of Birth:</strong> @item.DateOfBirth</div>
+                                        <div class="mb-2"><strong>Gender:</strong> @item.Gender</div>
+                                        <div class="mb-2"><strong>Height:</strong> @item.Height</div>
+                                        <div class="mb-2"><strong>Weight:</strong> @item.Weight</div>
+                                        <div class="mb-2"><strong>Country:</strong> @item.Country</div>
+                                        <div class="mb-2"><strong>City:</strong> @item.City</div>
+                                        <div class="mb-2"><strong>Phone:</strong> @item.Phone</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</div>
+
+

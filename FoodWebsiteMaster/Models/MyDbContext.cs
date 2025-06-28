@@ -23,7 +23,11 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<Contact> Contacts { get; set; }
 
+    public virtual DbSet<Direction> Directions { get; set; }
+
     public virtual DbSet<Doctor> Doctors { get; set; }
+
+    public virtual DbSet<Ingredient> Ingredients { get; set; }
 
     public virtual DbSet<NutritionFact> NutritionFacts { get; set; }
 
@@ -135,6 +139,15 @@ public partial class MyDbContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<Direction>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Directio__3214EC0729E2E6A7");
+
+            entity.HasOne(d => d.Recipe).WithMany(p => p.Directions)
+                .HasForeignKey(d => d.RecipeId)
+                .HasConstraintName("FK__Direction__Recip__0C85DE4D");
+        });
+
         modelBuilder.Entity<Doctor>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__TeamMemb__3214EC274947B06F");
@@ -144,6 +157,15 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Position).HasMaxLength(100);
             entity.Property(e => e.ProfileImage).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Ingredient>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Ingredie__3214EC07E6C9EC26");
+
+            entity.HasOne(d => d.Recipe).WithMany(p => p.Ingredients)
+                .HasForeignKey(d => d.RecipeId)
+                .HasConstraintName("FK__Ingredien__Recip__0F624AF8");
         });
 
         modelBuilder.Entity<NutritionFact>(entity =>
@@ -186,7 +208,24 @@ public partial class MyDbContext : DbContext
             entity.HasIndex(e => e.TransactionId, "UQ__Payments__55433A4A0F1A6AC9").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Address)
+                .HasMaxLength(200)
+                .IsUnicode(false);
             entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.ApartmentNumber)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.CardNumber).IsUnicode(false);
+            entity.Property(e => e.City)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Cvv).HasColumnName("CVV");
+            entity.Property(e => e.ExpiryCard)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.NameOnCard)
+                .HasMaxLength(100)
+                .IsUnicode(false);
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.PaymentDate)
                 .HasDefaultValueSql("(getdate())")
@@ -198,6 +237,7 @@ public partial class MyDbContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasDefaultValue("Pending");
+            entity.Property(e => e.Phone).IsUnicode(false);
             entity.Property(e => e.TransactionId)
                 .HasMaxLength(100)
                 .IsUnicode(false)

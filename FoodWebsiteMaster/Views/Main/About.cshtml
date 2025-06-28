@@ -1,11 +1,12 @@
-﻿
+﻿@model List<FoodWebsiteMaster.Models.Doctor>
+
 @{
     ViewData["Title"] = "About";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!-- PAGE TITLE
- ================================================== -->
+================================================== -->
 <section class="page-title-section bg-img cover-background" data-overlay-dark="55" data-background="https://lifestyle.websitelayout.net/img/bg/bg-03.jpg">
     <div class="container">
         <div class="row">
@@ -51,7 +52,7 @@
 
             <div class="position-relative z-index-9 video-about mt-3">
                 <div class="p-0">
-                    <img src="https://lifestyle.websitelayout.net/img/bg/bg-02.jpg" class="border-radius-10" alt="...">
+                    <img src="/img/content/y6pv669l.png" class="border-radius-10" alt="...">
                 </div>
                 <div class="story-video video-column position-absolute top-50 start-50 translate-middle">
                     <a class="video video_btn" href="https://www.youtube.com/watch?v=bREPaPWc2zI">
@@ -73,90 +74,35 @@
         <div class="row g-xxl-5 mt-n1-9 align-items-center">
             <div class="col-lg-3 mt-1-9">
                 <div class="section-heading contact-data text-start pe-lg-4">
-                    <span class="title-font text-primary display-25 display-md-23 d-block mb-1">Our Team</span>
-                    <h2 class="fw-bolder">Our Specialised Dietician</h2>
-                    <p class="mb-3 mb-md-4">Nutrition & Dietetics is an advanced scientific offerings option. We're specialists concerned on this subject are related to the richer segment of the society.</p>
+                    <span class="title-font text-primary display-25 display-md-23 d-block mb-1">Our Doctors</span>
+                    <h2 class="fw-bolder">Specialized in Diabetes & Hypertension Care</h2>
+                    <p class="mb-3 mb-md-4">
+                        Our expert dietitians work closely with patients to manage and monitor diabetes and high blood pressure through personalized nutrition plans. We focus on preventive care and long-term health improvement through science-based dietary guidance.
+                    </p>
                     <a href="https://lifestyle.websitelayout.net/our-team.html" class="butn-style01 secondary"><span>Show All</span></a>
                 </div>
             </div>
             <div class="col-lg-9 mt-1-9">
                 <div class="team-carousel owl-carousel owl-theme">
-                    <div class="m-2">
-                        <div class="card card-style5 border-0 border-radius-10">
-                            <div class="card-image position-relative">
-                                <div class="card-icons">
-                                    <span class="card-icon ti-plus"></span>
-                                    <a href="#!" class="card-icon fab fa-twitter"></a>
-                                    <a href="#!" class="card-icon fab fa-facebook-f"></a>
-                                    <a href="#!" class="card-icon fab fa-instagram"></a>
+                    @foreach (var doctor in Model)
+                    {
+                        <div class="m-2">
+                            <div class="card card-style5 border-0 border-radius-10">
+                                <div class="card-image position-relative">
+                                    <div class="card-icons">
+                                        <span class="card-icon ti-plus"></span>
+                                     
+                                        <a href="#!" class="card-icon fab fa-instagram"></a>
+                                    </div>
+                                    <img src="@doctor.ProfileImage" alt="@doctor.Name">
                                 </div>
-                                <a href="https://lifestyle.websitelayout.net/team-details.html" class="card-inner-img position-relative overflow-hidden">
-                                    <img src="https://lifestyle.websitelayout.net/img/team/team-01.jpg" alt="...">
-                                </a>
-                            </div>
-                            <div class="card-body text-center p-3">
-                                <h3 class="h4 mb-1"><a href="https://lifestyle.websitelayout.net/team-details.html">Daniel Hook</a></h3>
-                                <p class="mb-0">Diet & Nutrition</p>
+                                <div class="card-body text-center p-3">
+                                    <h3 class="h4 mb-1"><a>@doctor.Name</a></h3>
+                                    <p class="mb-0">@doctor.Position</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-lg-5 m-2">
-                        <div class="card card-style5 border-0 border-radius-10">
-                            <div class="card-image position-relative">
-                                <div class="card-icons">
-                                    <span class="card-icon ti-plus"></span>
-                                    <a href="#!" class="card-icon fab fa-twitter"></a>
-                                    <a href="#!" class="card-icon fab fa-facebook-f"></a>
-                                    <a href="#!" class="card-icon fab fa-instagram"></a>
-                                </div>
-                                <a href="https://lifestyle.websitelayout.net/team-details.html" class="card-inner-img position-relative overflow-hidden">
-                                    <img src="https://lifestyle.websitelayout.net/img/team/team-02.jpg" alt="...">
-                                </a>
-                            </div>
-                            <div class="card-body text-center p-3">
-                                <h3 class="h4 mb-1"><a href="https://lifestyle.websitelayout.net/team-details.html">Holly Parent</a></h3>
-                                <p class="mb-0">Executive Officer</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-2">
-                        <div class="card card-style5 border-0 border-radius-10">
-                            <div class="card-image position-relative">
-                                <div class="card-icons">
-                                    <span class="card-icon ti-plus"></span>
-                                    <a href="#!" class="card-icon fab fa-twitter"></a>
-                                    <a href="#!" class="card-icon fab fa-facebook-f"></a>
-                                    <a href="#!" class="card-icon fab fa-instagram"></a>
-                                </div>
-                                <a href="https://lifestyle.websitelayout.net/team-details.html" class="card-inner-img position-relative overflow-hidden">
-                                    <img src="https://lifestyle.websitelayout.net/img/team/team-03.jpg" alt="...">
-                                </a>
-                            </div>
-                            <div class="card-body text-center p-3">
-                                <h3 class="h4 mb-1"><a href="https://lifestyle.websitelayout.net/team-details.html">Jona Johnson</a></h3>
-                                <p class="mb-0">General Nutrition</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-lg-5 m-2">
-                        <div class="card card-style5 border-0 border-radius-10">
-                            <div class="card-image position-relative">
-                                <div class="card-icons">
-                                    <span class="card-icon ti-plus"></span>
-                                    <a href="#!" class="card-icon fab fa-twitter"></a>
-                                    <a href="#!" class="card-icon fab fa-facebook-f"></a>
-                                    <a href="#!" class="card-icon fab fa-instagram"></a>
-                                </div>
-                                <a href="https://lifestyle.websitelayout.net/team-details.html" class="card-inner-img position-relative overflow-hidden">
-                                    <img src="https://lifestyle.websitelayout.net/img/team/team-04.jpg" alt="...">
-                                </a>
-                            </div>
-                            <div class="card-body text-center p-3">
-                                <h3 class="h4 mb-1"><a href="https://lifestyle.websitelayout.net/team-details.html">Maya Owens</a></h3>
-                                <p class="mb-0">General Dietician</p>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -231,21 +177,21 @@
                             <i class="fas fa-phone-alt contact-icon-1"></i>
                             <div class="ps-sm-4 contact-detail">
                                 <span><strong>Have Question?</strong></span>
-                                <p class="mb-0 display-29 display-md-28 display-sm-29"><a href="tel:1234567890">Free +123 4567 890</a></p>
+                                <p class="mb-0 display-29 display-md-28 display-sm-29"><a href="tel:1234567890">+962 7 8258 3925</a></p>
                             </div>
                         </li>
                         <li class="d-sm-flex mb-4">
                             <i class="far fa-envelope-open contact-icon-1"></i>
                             <div class="ps-sm-4 contact-detail">
                                 <span><strong>Write Email</strong></span>
-                                <p class="mb-0 display-29 display-md-28 display-sm-29"><a href="mailto:info@example.com">info@example.com</a></p>
+                                <p class="mb-0 display-29 display-md-28 display-sm-29"><a href="mailto:info@example.com">hailatsura@gmail.com</a></p>
                             </div>
                         </li>
                         <li class="d-sm-flex">
-                            <i class="fas fa-map-marker-alt contact-icon-1"></i>
+                            <i class="fab fa-instagram contact-icon-1"></i>
                             <div class="ps-sm-4 contact-detail">
                                 <span><strong>Location</strong></span>
-                                <p class="mb-0 display-29 display-md-28 display-sm-29">Guild Street 51, NT, London-06192, UK</p>
+                                <p class="mb-0 display-29 display-md-28 display-sm-29"><a href="https://www.instagram.com/sura_hailat18?igsh=eTZ6ODlrazVkb2M2">Livance</a></p>
                             </div>
                         </li>
                     </ul>

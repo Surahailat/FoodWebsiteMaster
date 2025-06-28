@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Subscription Alert";
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Subscription Required',
+            text: 'You must subscribe to access meals.',
+            confirmButtonText: 'Subscribe Now',
+            showCancelButton: true,
+            cancelButtonText: 'Back'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '@Url.Action("Subscription", "Main")';
+            } else {
+                window.location.href = '@Url.Action("mealPlan", "Meal")'; // أو أي صفحة ترجع المستخدم
+            }
+        });
+    </script>
+}

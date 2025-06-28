@@ -21,10 +21,38 @@ namespace FoodWebsiteMaster.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Shop()
+        public async Task<IActionResult> Shop(string sortOrder, string searchString)
         {
-            return View(await _context.Products.ToListAsync());
+            var products = from p in _context.Products select p;
+
+            // Filter by search string
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(p => p.Name.Contains(searchString));
+            }
+
+            // Sorting
+            switch (sortOrder)
+            {
+                case "az":
+                    products = products.OrderBy(p => p.Name);
+                    break;
+                case "za":
+                    products = products.OrderByDescending(p => p.Name);
+                    break;
+                case "price":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+                case "price-desc":
+                    products = products.OrderByDescending(p => p.Price);
+                    break;
+                default:
+                    break; // No sorting (default)
+            }
+
+            return View(await products.ToListAsync());
         }
+
 
         // GET: Products/Details/5
         public async Task<IActionResult> singleProduct(int? id)
@@ -157,21 +185,55 @@ namespace FoodWebsiteMaster.Controllers
         public async Task<IActionResult> Cart()
         {
             int? sessionUserId = HttpContext.Session.GetInt32("UserId");
+            List<CartItem> cartItems;
 
-            if (sessionUserId == null)
+            if (sessionUserId != null)
             {
-                return RedirectToAction("Login", "Account"); // أو صفحة تسجيل الدخول إذا مش مسجل
+                // ✅ إذا كان المستخدم مسجل دخول
+                int userId = sessionUserId.Value;
+                cartItems = await _context.CartItems
+                    .Where(ci => ci.UserId == userId)
+                    .Include(ci => ci.Product) // مهم لعرض اسم المنتج وصورته
+                    .ToListAsync();
             }
+            else
+            {
+                // ✅ إذا كان المستخدم غير مسجل دخول (زائر)
+                const string cartCookieName = "temporaryCart";
+                string cartCookieValue = Request.Cookies[cartCookieName];
+                List<tempCart> cartList = new();
 
-            var userId = sessionUserId.Value;
+                if (!string.IsNullOrEmpty(cartCookieValue))
+                {
+                    try
+                    {
+                        cartList = JsonSerializer.Deserialize<List<tempCart>>(cartCookieValue) ?? new();
+                    }
+                    catch (JsonException ex)
+                    {
+                        Console.WriteLine($"Error reading cookie: {ex.Message}");
+                    }
+                }
 
-            var cartItems = await _context.CartItems
-                .Where(ci => ci.UserId == userId)
-                .Include(ci => ci.Product) // مهم عشان تعرض اسم المنتج وصورته
-                .ToListAsync();
+                // تحويل قائمة المنتجات في الكوكيز إلى CartItem
+                cartItems = cartList.Select(c =>
+                {
+                    var product = _context.Products.FirstOrDefault(p => p.Id == c.ProductID);
+                    return new CartItem
+                    {
+                        ProductId = c.ProductID,
+                        Quantity = c.Quantity,
+                        Product = product,
+                        Price = c.Price,         // ⭐️ السعر من الكوكي
+                        Image = c.Image          // ⭐️ الصورة من الكوكي
+                    };
+                }).ToList();
+
+            }
 
             return View(cartItems);
         }
+
 
         //add to cart 
         [Route("Products/AddToCart/{id}")]
@@ -236,7 +298,6 @@ namespace FoodWebsiteMaster.Controllers
             }
             else
             {
-                // مستخدم مجهول => نستخدم الكوكيز
                 const string cartCookieName = "temporaryCart";
                 string cartCookieValue = Request.Cookies[cartCookieName];
                 List<tempCart> cartList = new List<tempCart>();
@@ -265,7 +326,9 @@ namespace FoodWebsiteMaster.Controllers
                     {
                         ProductID = id,
                         Quantity = 1,
-                        AddedAt = DateTime.Now
+                        AddedAt = DateTime.Now,
+                        Image= product.Image,
+                        Price = product.Price
                     });
                 }
 
@@ -279,6 +342,7 @@ namespace FoodWebsiteMaster.Controllers
 
             return RedirectToAction("Shop");
         }
+
         // لزيادة الكمية
         [HttpPost]
         public async Task<IActionResult> IncreaseQuantity(int id)
@@ -309,7 +373,6 @@ namespace FoodWebsiteMaster.Controllers
                 }
                 else
                 {
-                    // اذا وصلت 1 ونقصنا، نحذفه من السلة
                     _context.CartItems.Remove(cartItem);
                 }
                 await _context.SaveChangesAsync();
@@ -333,14 +396,86 @@ namespace FoodWebsiteMaster.Controllers
 
 
 
-        public IActionResult recipe()
+        public async Task<IActionResult> AddNumCart(int id, int quantity)
         {
-            return View();
+            var product = await _context.Products.FindAsync(id);
+            if (product == null) return NotFound();
+
+            int? sessionUserId = HttpContext.Session.GetInt32("UserId");
+
+            if (sessionUserId != null)
+            {
+                var userId = sessionUserId.Value;
+
+                var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == userId);
+                if (cart == null)
+                {
+                    cart = new Cart { UserId = userId, CreatedAt = DateTime.Now };
+                    _context.Carts.Add(cart);
+                    await _context.SaveChangesAsync();
+                }
+
+                var existingCartItem = await _context.CartItems
+                    .FirstOrDefaultAsync(item => item.CartId == cart.Id && item.ProductId == id);
+
+                if (existingCartItem != null)
+                {
+                    existingCartItem.Quantity += quantity;
+                    existingCartItem.UpdatedAt = DateTime.Now;
+                    _context.CartItems.Update(existingCartItem);
+                }
+                else
+                {
+                    var newCartItem = new CartItem
+                    {
+                        CartId = cart.Id,
+                        ProductId = id,
+                        Quantity = quantity,
+                        Price = product.Price,
+                        AddedAt = DateTime.Now,
+                        UserId = userId,
+                        UpdatedAt = DateTime.Now,
+                        Image = product.Image
+                    };
+                    _context.CartItems.Add(newCartItem);
+                }
+
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                const string cartCookieName = "temporaryCart";
+                string cartCookieValue = Request.Cookies[cartCookieName];
+                List<tempCart> cartList = new List<tempCart>();
+
+                if (!string.IsNullOrEmpty(cartCookieValue))
+                {
+                    try { cartList = JsonSerializer.Deserialize<List<tempCart>>(cartCookieValue); }
+                    catch { cartList = new List<tempCart>(); }
+                }
+
+                var existingItem = cartList.FirstOrDefault(item => item.ProductID == id);
+                if (existingItem != null)
+                {
+                    existingItem.Quantity += quantity;
+                }
+                else
+                {
+                    cartList.Add(new tempCart
+                    {
+                        ProductID = id,
+                        Quantity = quantity,
+                        AddedAt = DateTime.Now
+                    });
+                }
+
+                var cookieOptions = new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) };
+                Response.Cookies.Append(cartCookieName, JsonSerializer.Serialize(cartList), cookieOptions);
+            }
+
+            return RedirectToAction("Shop");
         }
-        public IActionResult mealPlan()
-        {
-            return View();
-        }
+
 
 
     }

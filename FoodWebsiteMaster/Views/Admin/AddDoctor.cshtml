@@ -1,0 +1,32 @@
+﻿@model FoodWebsiteMaster.Models.Doctor
+
+@{
+    ViewData["Title"] = "AddDoctor";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<form asp-action="AddDoctor" method="post" enctype="multipart/form-data" class="p-4 shadow rounded bg-white">
+    <h4 class="mb-4">Add New Doctor</h4>
+
+    <div class="mb-3">
+        <label for="Name" class="form-label fw-bold">Name</label>
+        <input type="text" class="form-control" name="Name" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Position" class="form-label fw-bold">Position</label>
+        <input type="text" class="form-control" name="Position" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="InstagramLink" class="form-label fw-bold">Instagram Link</label>
+        <input type="text" class="form-control" name="InstagramLink" />
+    </div>
+
+    <div class="mb-3">
+        <label for="ProfileImage" class="form-label fw-bold">Image</label>
+        <input type="text" class="form-control" name="ProfileImage" />
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Submit</button>
+</form>

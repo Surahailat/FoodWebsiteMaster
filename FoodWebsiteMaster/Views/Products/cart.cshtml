@@ -2,88 +2,204 @@
 
 <head>
     <link href="~/css/cart.css" rel="stylesheet" />
+    <style>
+
+        .cart-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+
+        .cart-title {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        thead {
+            background-color: #f4f4f4;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 0.95rem;
+        }
+
+        th {
+            color: #333;
+            font-weight: bold;
+        }
+
+        td img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .quantity-btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: #eee;
+            transition: all 0.3s;
+        }
+
+            .quantity-btn:hover {
+                background-color: #ccc;
+            }
+
+        .remove-btn {
+            background-color: #ff6b6b;
+            color: #fff;
+            padding: 6px 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+            .remove-btn:hover {
+                background-color: #e74c3c;
+            }
+
+        .checkout-box {
+            text-align: right;
+        }
+
+        .subtotal-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .checkout-btn {
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            .checkout-btn:hover {
+                background-color: #219150;
+            }
+
+    </style>
 </head>
 
-<div class="container my-5">
-    <h2 class="cart-title mb-4">Your cart</h2>
-    <div class="table-responsive mb-4">
-        <table class="table align-middle">
-            <thead>
-                <tr>
-                    <th>IMAGE</th>
-                    <th>NAME</th>
-                    <th>PRICE</th>
-                    <th>QUANTITY</th>
-                    <th>TOTAL</th>
-                    <th>REMOVE</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null && Model.Any())
-                {
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                <img src="@item.Image" class="cart-img" alt="Product Image" style="width: 80px; height: 80px;" />
-                            </td>
-                            <td>
-                                @item.Product.Name
-                                <br />
-                                <small class="text-muted">@item.Product.Description</small> <!-- إذا حابة تعرضي وصف المنتج -->
-                            </td>
-                            <td>
-                                $@item.Price.ToString("F2")
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <form asp-action="DecreaseQuantity" method="post" asp-route-id="@item.Id" class="d-inline">
-                                        <button type="submit" class="btn btn-outline-secondary btn-sm">-</button>
-                                    </form>
-                                    <span class="mx-2">@item.Quantity</span>
-                                    <form asp-action="IncreaseQuantity" method="post" asp-route-id="@item.Id" class="d-inline">
-                                        <button type="submit" class="btn btn-outline-secondary btn-sm">+</button>
-                                    </form>
-                                </div>
-                            </td>
-                            <td>
-                                $@(item.Price * item.Quantity).ToString("F2")
-                            </td>
-                            <td>
-                                <form asp-action="RemoveItem" method="post" asp-route-id="@item.Id" class="d-inline">
-                                    <button type="submit" class="btn btn-danger btn-sm">🗑️</button>
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="6" class="text-center">Your cart is empty.</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <textarea class="form-control" rows="3" placeholder="Order special instructions"></textarea>
-        </div>
-        <div class="col-md-6 d-flex justify-content-end">
-            <div class="checkout-box">
-                <p class="subtotal-text">
-                    Subtotal: $
-                    @{
-                        var subtotal = Model?.Sum(item => item.Quantity * item.Price) ?? 0;
-                        @subtotal.ToString("F2")
-                        ;
-                    }
-                </p>
-                <p class="text-muted">Taxes and shipping calculated at checkout</p>
-                <button class="btn btn-dark w-100">Proceed to checkout</button>
+<!-- PAGE TITLE
+================================================== -->
+<section class="page-title-section bg-img cover-background" data-overlay-dark="55" data-background="https://lifestyle.websitelayout.net/img/bg/bg-03.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Cart</h1>
+                <div class="breadcrumb">
+                    <ul>
+                        <li><a asp-action="Home2" asp-controller="Main">Home</a></li>
+                        <li><a href="#!"> Cart</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
+    <div class="bg-transparent border-width-2 border-solid border-secondary p-3 d-sm-inline-block rounded-circle position-absolute bottom-10 left-5 ani-top-bottom d-none z-index-3"></div>
+    <div class="bg-secondary p-1-6 d-lg-block rounded-circle position-absolute top-25 right-25 ani-top-bottom d-none z-index-3"></div>
+    <div class="bg-white p-2 d-sm-inline-block rounded-circle position-absolute top-40 left-25 ani-left-right d-none z-index-3"></div>
+</section>
+
+<div class="cart-container">
+    @* <h2 class="cart-title">🛒 Your Cart</h2> *@
+
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td data-label="Image">
+                            <img src="@item.Product.Image" alt="Product Image" />
+                        </td>
+                        <td data-label="Name">
+                            <strong>@item.Product.Name</strong><br />
+                        </td>
+                        <td data-label="Price">@item.Product.Price JD</td>
+                        <td data-label="Quantity">
+                            <form asp-action="DecreaseQuantity" method="post" asp-route-id="@item.Id" style="display:inline;">
+                                <button class="quantity-btn">-</button>
+                            </form>
+                            <span style="margin: 0 8px;">@item.Quantity</span>
+                            <form asp-action="IncreaseQuantity" method="post" asp-route-id="@item.Id" style="display:inline;">
+                                <button class="quantity-btn">+</button>
+                            </form>
+                        </td>
+                        <td data-label="Total">@((item.Product.Price * item.Quantity).ToString("0.00")) JD</td>
+                        <td data-label="Remove">
+                            <form asp-action="RemoveItem" method="post" asp-route-id="@item.Id" style="display:inline;">
+                                <button class="remove-btn" style="background: none; border: none; color: #dc3545; cursor: pointer;" title="Remove Item">
+                                    <i class="fas fa-trash-alt fa-lg"></i>
+                                </button>
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" style="text-align:center; color:gray;">Your cart is empty.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="checkout-box">
+            <p class="subtotal-text">
+                Subtotal:
+                @{
+                    var subtotal = Model.Sum(item => item.Quantity * item.Product.Price);
+                    @subtotal.ToString("0.00")
+                } JD
+            </p>
+
+            <p style="color:gray;">Taxes and shipping will be calculated at checkout.</p>
+            <a class="checkout-btn" asp-action="Payment" asp-controller="Main">Proceed to Checkout</a>
+        </div>
+    }
 </div>
+
+
+

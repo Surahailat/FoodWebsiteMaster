@@ -1,0 +1,126 @@
+﻿@model IEnumerable<FoodWebsiteMaster.Models.Product>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+@{
+    ViewData["Title"] = "Product";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class=" flex-grow-1 overflow-y-lg-auto">
+    <!-- Header -->
+    <header class="bg-surface-primary border-bottom pt-6">
+        <div class="container-fluid">
+            <div class="mb-npx">
+                <div class="row align-items-center">
+                    <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                        <!-- Title -->
+                        <h1 class="h2 mb-0 ls-tight">Application</h1>
+                    </div>
+                    <!-- Actions -->
+                    <div class="col-sm-6 col-12 text-sm-end">
+                        <div class="mx-n1">
+                            <a asp-action="createProduct" class="btn d-inline-flex btn-sm btn-primary mx-1">
+                                <span class=" pe-2">
+                                    <i class="bi bi-plus"></i>
+                                </span>
+                                <span>Create</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+<div class="card shadow border-0 mb-7">
+    <div class="card-header">
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Stock Quantity</th>
+                    <th scope="col">Description</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img alt="..." src="@item.Image" class="avatar avatar-sm rounded-circle me-2">
+                            <a class="text-heading font-semibold" >
+                                @item.Name
+                            </a>
+                        </td>
+                        <td>
+                            @item.Price
+                        </td>
+                        <td>
+                            @item.StockQuantity
+                        </td>
+                        <td title="@item.Description">
+                            @(item.Description.Length > 50 ? item.Description.Substring(0, 50) + "..." : item.Description)
+                        </td>
+
+
+                        <td class="text-end">
+                            <button type="button" class="btn d-inline-flex btn-sm btn-neutral border-base mx-1"
+                                    data-bs-toggle="modal" data-bs-target="#editModal-@item.Id">
+                                <i class="bi bi-pencil me-1"></i> Edit
+                            </button>
+
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline">
+                                <button type="submit" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+
+                        </td>
+                    </tr>
+                    <!-- Modal for Edit -->
+                    <div class="modal fade" id="editModal-@item.Id" tabindex="-1" aria-labelledby="editModalLabel-@item.Id" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <form asp-action="Edit" method="post">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel-@item.Id">Edit Product - @item.Name</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="Id" value="@item.Id" />
+                                        <div class="mb-3">
+                                            <label class="form-label">Name</label>
+                                            <input type="text" name="Name" class="form-control" value="@item.Name" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Price</label>
+                                            <input type="number" name="Price" class="form-control" value="@item.Price" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Stock Quantity</label>
+                                            <input type="number" name="StockQuantity" class="form-control" value="@item.StockQuantity" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Description</label>
+                                            <textarea name="Description" class="form-control">@item.Description</textarea>
+                                        </div>
+                                        <!-- Add more fields as needed -->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

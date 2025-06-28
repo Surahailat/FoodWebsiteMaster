@@ -16,10 +16,6 @@ namespace FoodWebsiteMaster.Controllers
         {
             _context = context;
         }
-        public IActionResult Home()
-        {
-            return View();
-        }
         public async Task<IActionResult> Home2()
         {
             var recipes = await _context.Recipes
@@ -37,31 +33,10 @@ namespace FoodWebsiteMaster.Controllers
 
             return View(model);
         }
-
-
-        //public async Task<IActionResult> Home2()
-        //{
-        //    return View(await _context.Products.ToListAsync());
-        //}
-        public IActionResult recipe()
+        public async Task<IActionResult> About()
         {
-            return View();
-        }
-        public IActionResult About()
-        {
-            return View();
-        }
-        public IActionResult shop()
-        {
-            return View();
-        }
-        public IActionResult singleProduct()
-        {
-            return View();
-        }
-        public IActionResult mealPlan()
-        {
-            return View();
+            var doctors = await _context.Doctors.ToListAsync();
+            return View(doctors);
         }
 
         [HttpGet("Appointment/{doctorId}")]
@@ -71,7 +46,7 @@ namespace FoodWebsiteMaster.Controllers
 
             if (userId == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("signIn", "user");
             }
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
@@ -87,23 +62,49 @@ namespace FoodWebsiteMaster.Controllers
 
             return View();
         }
+
+
         [HttpPost]
-        public async Task<IActionResult> CreateAppointment(string name, string email, string message, IFormFile file, string doctorName, string doctorPosition)
+        public async Task<IActionResult> CreateAppointment(
+            string name,
+            string email,
+            string message,
+            IFormFile file,
+            string doctorName,
+            string doctorPosition)
         {
             var userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null) return RedirectToAction("Login");
 
-            // تحقق من عدد الحجوزات لهذا الإيميل خلال هذا الشهر
+            var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.Name == doctorName);
+            if (doctor == null) return NotFound();
+
+            var doctorId = doctor.Id;
+
+            // Check if user has active subscription
+            var subscription = await _context.UserSubscribes
+                .FirstOrDefaultAsync(s => s.UserId == userId && s.EndDate > DateTime.Now);
+
+            if (subscription == null)
+            {
+                TempData["Alert"] = "NoSubscription";
+                return RedirectToAction("Appointment", new { doctorId = doctorId });
+            }
+
+            // Check appointment count this month
             var currentMonth = DateTime.Now.Month;
             var currentYear = DateTime.Now.Year;
+
             var appointmentsCount = await _context.Appointments
-                .Where(a => a.Email == email && a.AppointmentDate.Month == currentMonth && a.AppointmentDate.Year == currentYear)
+                .Where(a => a.Email == email &&
+                            a.AppointmentDate.Month == currentMonth &&
+                            a.AppointmentDate.Year == currentYear)
                 .CountAsync();
 
             if (appointmentsCount >= 2)
             {
-                TempData["Error"] = "You can only book 2 appointments per month.";
-                return RedirectToAction("Appointment");
+                TempData["Alert"] = "LimitExceeded";
+                return RedirectToAction("Appointment", new { doctorId = doctorId });
             }
 
             var appointment = new Appointment
@@ -121,8 +122,11 @@ namespace FoodWebsiteMaster.Controllers
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("AppointmentConfirmation");
+            TempData["Alert"] = "Success";
+            return RedirectToAction("Appointment", new { doctorId = doctorId });
         }
+
+
 
         private async Task<string> SaveFileAsync(IFormFile file)
         {
@@ -221,6 +225,7 @@ namespace FoodWebsiteMaster.Controllers
 
 
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Subscribe(Paymentssub payment)
@@ -233,40 +238,56 @@ namespace FoodWebsiteMaster.Controllers
 
             payment.UserId = userId.Value;
             payment.PaymentDate = DateTime.Now;
-            payment.PaymentStatus = "Paid"; // أو حسب حالة الدفع الحقيقية
+            payment.PaymentStatus = "Paid";
+
+            var subscription = _context.Subscriptions.FirstOrDefault(s => s.Id == payment.SubscriptionId);
+            if (subscription == null)
+            {
+                return NotFound("Subscription not found");
+            }
 
             _context.Paymentssubs.Add(payment);
             _context.SaveChanges();
 
-            // إنشاء الاشتراك الفعلي
-            var subscription = _context.Subscriptions.FirstOrDefault(s => s.Id == payment.SubscriptionId);
-            if (subscription != null)
+            var userSubscribe = new UserSubscribe
             {
-                var userSubscribe = new UserSubscribe
-                {
-                    UserId = userId.Value,
-                    SubscriptionId = payment.SubscriptionId,
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddDays(subscription.DurationInDays)
-                };
+                UserId = userId.Value,
+                SubscriptionId = payment.SubscriptionId,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(subscription.DurationInDays)
+            };
 
-                _context.UserSubscribes.Add(userSubscribe);
-                _context.SaveChanges();
-            }
+            _context.UserSubscribes.Add(userSubscribe);
+            _context.SaveChanges();
 
-            return RedirectToAction("Home2","Main");
+            TempData["PaymentSuccess"] = "true";
+            return RedirectToAction("Home2", "Main");
         }
 
-        public IActionResult Payment()
+        public async Task<IActionResult> Payment()
         {
-            return View();
+            var userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+                return RedirectToAction("Login");
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            return View(user);
         }
+
+
 
         public IActionResult PaymentProcess(Payment payment)
         {
             return View();
         }
+
+        public async Task<IActionResult> Subscription()
+        {
+            var Subscriptions = await _context.Subscriptions.ToListAsync();
+            return View(Subscriptions);
+        }
     }
 
 
-    }
+}

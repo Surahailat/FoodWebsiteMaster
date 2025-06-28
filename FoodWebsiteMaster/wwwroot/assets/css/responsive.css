@@ -1,0 +1,118 @@
+/*===================================================
+    Media Query
+====================================================*/
+
+/* max-width 1024px */
+@media (max-width: 1024px) {}
+
+/* max-width 992px */
+@media (max-width: 992px) {
+    .padding{ padding: 50px 0; }
+    .sm-padding{ padding: 15px; }
+    p br{ display: none; }
+    span br{ display: none; }
+    .default-btn{ padding: 0 30px; }
+    .section-heading h2{
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .section-heading br{ display: inherit; }
+    .footer-widget .brand img{ width: 40%; }
+    .hero-section{ height: 500px; }
+    .hero-content h2{
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .hero-section .overlay.white{ display: block;}
+    .hero-modern{ height: 450px; }
+    
+    .promo-content{ width: 60%; }
+    .promo-box.green{ background-size: 65%;}
+    .promo-box.pink{ background-position: 100% -80%; }
+    .promo-box.yellow{
+        background-size: 50%;
+        background-position: 130% -120%;
+    }
+    .promo-section.modern .promo-content{ width: 100%; }
+    
+    .cta-section .cta-img{ text-align: right; }
+    .cta-section .cta-img img{ max-width: 55%; }
+    .cta-modern .section-heading h2 br{ display: none; }
+    .cta-modern .cta-img{ left: -10px; }
+    .cta-modern .cta-img img{ max-width: 60%; }
+    .cta-classic .cta-img{
+        right: -10%;
+        top: 62%;
+    }
+    .cta-classic{overflow: hidden;}
+    .cta-classic .cta-img img{ max-width: 70%; }
+    .client-thumb img{ max-width: 70%; }
+    .cart-header{ display: none; }
+    .footer-widget.ml-50{ margin-left: 0; }
+}
+
+/* max-width 768px */
+@media all and (max-width: 767px) {
+    .padding{ padding: 50px 0; }
+    .xs-padding{ padding: 15px; }
+    p br{ display: none; }
+    .section-heading h2{
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .section-heading p br{ display: none; }
+    
+    .hero-section{
+        background-position: left center; 
+        border-bottom: 1px solid #eee;
+    }
+    .hero-content{text-align: center;}
+    .hero-content h1{ 
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .hero-content h1 br{ display: none;}
+    .hero-content p br{ display: none;}
+    .hero-section .overlay.white{ display: none;}
+    .hero-img{display: none;}
+    
+    .promo-content{ width: 100%; }
+    .promo-box.green, 
+    .promo-box.pink, 
+    .promo-box.yellow{ background-image: none;} 
+    
+    .cta-section .cta-img,
+    .cta-modern .cta-img,
+    .cta-classic .cta-img { display: none; }
+    .client-thumb img{ max-width: 50%; }
+    .footer-widget .brand img{ width: 40%; }
+    
+    .testimonial-item{
+        padding: 40px 60px;
+    }
+    .nav-visible .dl-slider-controls.style-2 > div{left: 0;}
+    .nav-visible .dl-slider-controls.style-2 > div.dl-slider-button-next{ right: 0;}
+}
+
+/* max-width 580px */
+@media all and (max-width: 580px) {
+    .promo-content h2 {
+        font-size: 32px;
+        line-height: 36px;
+    }
+    .contact-form-group{
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+    }
+    #scrollup {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* max-width 420px */
+@media all and (max-width: 420px) {}
+
+/* max-width 320px */
+@media (max-width: 320px) {}

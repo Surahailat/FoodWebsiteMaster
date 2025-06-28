@@ -5,54 +5,41 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@* <h1>singleProduct</h1> *@
-
-@* <div> *@
-@*     <h4>Product</h4> *@
-@*     <hr /> *@
-@*     <dl class="row"> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayNameFor(model => model.Name) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Name) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayNameFor(model => model.Price) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.Price) *@
-@*         </dd> *@
-@*         <dt class = "col-sm-2"> *@
-@*             @Html.DisplayNameFor(model => model.StockQuantity) *@
-@*         </dt> *@
-@*         <dd class = "col-sm-10"> *@
-@*             @Html.DisplayFor(model => model.StockQuantity) *@
-@*         </dd> *@
-@*     </dl> *@
-@* </div> *@
-@* <div> *@
-@*     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> | *@
-@*     <a asp-action="Index">Back to List</a> *@
-@* </div> *@
-
-
-
 <head>
 	<link rel="stylesheet" href="~/css/style.css">
 	<link rel="stylesheet" href="~/css/colors/green.css" id="colors">
 
 </head>
 
+<!-- PAGE TITLE
+================================================== -->
+<section class="page-title-section bg-img cover-background" data-overlay-dark="55" data-background="https://lifestyle.websitelayout.net/img/bg/bg-03.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1>product Details</h1>
+				<div class="breadcrumb">
+					<ul>
+						<li><a asp-action="Home2" asp-controller="Main">Home</a></li>
+						<li><a href="#!">product Details</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bg-transparent border-width-2 border-solid border-secondary p-3 d-sm-inline-block rounded-circle position-absolute bottom-10 left-5 ani-top-bottom d-none z-index-3"></div>
+	<div class="bg-secondary p-1-6 d-lg-block rounded-circle position-absolute top-25 right-25 ani-top-bottom d-none z-index-3"></div>
+	<div class="bg-white p-2 d-sm-inline-block rounded-circle position-absolute top-40 left-25 ani-left-right d-none z-index-3"></div>
+</section>
 
-<div class="container">
+<div class="container" style="padding-top: 5%;">
 
 	<!-- Slider
 	================================================== -->
 	<div class="eight columns">
 		<!-- Slider -->
 		<div class="productSlider rsDefault">
-			<img class="rsImg" style="    width: 100%;  height: 300px;" src="@Model.Image" alt="" />
+			<img class="rsImg" style="width: 100%;height: 440px;" src="@Model.Image" alt="@Model.Name" />
 		</div>
 		<div class="clearfix"></div>
 	</div>
@@ -66,8 +53,8 @@
 			<!-- Headline -->
 			<section class="title">
 				<h2>@Model.Name</h2>
-				<span class="product-price">@Model.Price</span>
-				<span class="product-price">@Model.StockQuantity</span>
+				<span class="product-price" style="color:red;">@Model.Price</span>
+				@* <span class="product-price">@Model.StockQuantity</span> *@
 
 			</section>
 
@@ -80,13 +67,24 @@
 
 			<section class="linking">
 
-				<form action='#'>
-					<div class="qtyminus"></div>
-					<input type='text' name="quantity" value='1' class="qty" />
-					<div class="qtyplus"></div>
+
+				<form asp-controller="Products" asp-action="AddNumCart" asp-route-id="@Model.Id" method="post">
+
+					<!-- التحكم بالكمية -->
+					<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+						<div class="qtyminus" onclick="changeQty(-1)"></div>
+						<input type="text" name="quantity" value="1" class="qty" min="1" max="@Model.StockQuantity" style="height: 40px;" />
+						<div class="qtyplus" onclick="changeQty(1)"></div>
+					</div>
+
+					<!-- الزر في سطر جديد -->
+					<div>
+						<button type="submit" class="button adc color" style="border: none;"><a class="button adc color" style="margin-left: auto;">Add to Cart</a></button>
+					</div>
+
 				</form>
 
-				<a asp-controller="Products" asp-action="AddToCart" asp-route-id="@Model.Id" class="button adc color">Add to Cart</a>
+
 				<div class="clearfix"></div>
 
 			</section>
@@ -112,7 +110,7 @@
 		<div class="tabs-container">
 
 			<div class="tab-content" id="tab1">
-				<p>Lorem ipsum pharetra lorem felis. Aliquam egestas consectetur elementum class aptentea taciti sociosqu ad litora torquent perea conubia nostra lorem consectetur adipiscing elit. Donec vestibulum justo a diam ultricies pellentesque. Fusce vehicula libero arcu, vitae ornare turpis elementum at. Etiam posuere quam nec ligula dignissim iaculis donec eleifend laoreet ornare. Quisque mattis luctus est, a placerat elit pharetra.</p>
+				<p>@Model.Description</p>
 			</div>
 
 
@@ -205,7 +203,7 @@
 					<a href="product-page.html">
 						<img alt="" src="images/shop_item_06.jpg" />
 					</a>
-					<a href="#" class="product-button"><i class="fa fa-shopping-cart"></i></a>
+					<a class="product-button"><i class="fa fa-shopping-cart"></i></a>
 				</div>
 
 				<a href="product-page.html">
@@ -225,3 +223,16 @@
 
 
 <!-- Wrapper / End -->
+<script>
+	function changeQty(change) {
+		const input = document.querySelector(".qty");
+		let value = parseInt(input.value) || 1;
+		const max = parseInt(input.max) || 999;
+
+		value += change;
+		if (value < 1) value = 1;
+		if (value > max) value = max;
+
+		input.value = value;
+	}
+</script>

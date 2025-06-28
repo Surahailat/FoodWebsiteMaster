@@ -26,4 +26,8 @@ public partial class Recipe
     public DateTime? CreatedAt { get; set; }
 
     public string? Type { get; set; }
+
+    public virtual ICollection<Direction> Directions { get; set; } = new List<Direction>();
+
+    public virtual ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
 }

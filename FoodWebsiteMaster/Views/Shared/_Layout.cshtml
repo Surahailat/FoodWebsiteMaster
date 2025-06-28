@@ -1,4 +1,20 @@
-﻿<!DOCTYPE html>
+﻿@inject MyDbContext _context
+@{
+	var sessionUserId = Context.Session.GetInt32("UserId");
+	bool hasSubscription = false;
+
+	if (sessionUserId != null)
+	{
+		var now = DateTime.Now;
+		hasSubscription = _context.UserSubscribes
+			.Any(us => us.UserId == sessionUserId
+								&& us.StartDate <= now
+								&& us.EndDate >= now);
+	}
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -43,29 +59,33 @@
 							<nav class="navbar navbar-expand-lg navbar-light p-0">
 
 								<div class="navbar-toggler bg-secondary"></div>
-
+								@* <ul class="navbar-nav me-auto"  > *@
+								@* 	<li> *@
+								@* 		<img src="/img/logos/Screenshot_2025-01-26_114436-removebg-preview (1).png" alt="Alternate Text" /> *@
+								@* 	</li> *@
+								@* </ul> *@
 								<!-- start menu area -->
 								<ul class="navbar-nav me-auto" id="nav" style="display: none;">
-									<li><a asp-controller="Main" asp-action="Home2">Home</a></li>
-
 									<li>
-										<a href="#!">Services</a>
+										<a asp-controller="Main" asp-action="Home2">Home</a>
 									</li>
-									<li>
-										<a asp-controller="Products" asp-action="mealPlan">My Meals</a>
-
-									</li>
+									@if (!string.IsNullOrEmpty(Context.Session.GetString("UserId")))
+									{
+										<li>
+											<a asp-controller="Meal" asp-action="mealPlan">My Meals</a>
+										</li>
+									}
 									<li>
 										<a asp-controller="Products" asp-action="shop">shop</a>
 
 									</li>
-									
-										@if (!string.IsNullOrEmpty(Context.Session.GetString("Email")))
-										{
-									<li>
+
+									@if (!string.IsNullOrEmpty(Context.Session.GetString("Email")))
+									{
+										<li>
 											<a asp-controller="Main" asp-action="ourDoctors">Doctors</a>
-									</li>
-										}
+										</li>
+									}
 									<li>
 										<a asp-controller="Main" asp-action="About">About us</a>
 									</li>
@@ -246,6 +266,7 @@
 
 	<!-- form scripts js -->
 	<script src="~/quform/js/scripts.js"></script>
+	@* @RenderSection("Scripts", required: false) *@
 
 	<!-- all js include end -->
 	@await RenderSectionAsync("Scripts", required: false)

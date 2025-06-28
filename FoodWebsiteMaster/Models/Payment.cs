@@ -21,6 +21,22 @@ public partial class Payment
 
     public string? TransactionId { get; set; }
 
+    public string? Address { get; set; }
+
+    public string? Phone { get; set; }
+
+    public string? City { get; set; }
+
+    public string? ApartmentNumber { get; set; }
+
+    public string? NameOnCard { get; set; }
+
+    public string? CardNumber { get; set; }
+
+    public string? ExpiryCard { get; set; }
+
+    public int? Cvv { get; set; }
+
     public virtual Order Order { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;

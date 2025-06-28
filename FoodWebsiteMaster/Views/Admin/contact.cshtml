@@ -1,0 +1,33 @@
+﻿@model IEnumerable<FoodWebsiteMaster.Models.Contact>
+
+@{
+    ViewData["Title"] = "contact";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container py-4">
+    <h3 class="mb-4 fw-bold">User Messages</h3>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach (var contact in Model)
+        {
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">@contact.Subject</h5>
+                        <p class="card-text">@contact.Message</p>
+
+                        <ul class="list-unstyled small text-muted mt-3">
+                            <li><strong>Name:</strong> @contact.Name</li>
+                            <li><strong>Email:</strong> @contact.Email</li>
+                            @if (!string.IsNullOrEmpty(contact.Phone))
+                            {
+                                <li><strong>Phone:</strong> @contact.Phone</li>
+                            }
+                            <li><strong>Date:</strong> @(contact.CreatedAt?.ToString("yyyy-MM-dd HH:mm") ?? "N/A")</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

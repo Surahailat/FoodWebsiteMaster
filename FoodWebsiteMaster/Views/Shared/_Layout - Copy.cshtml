@@ -1,0 +1,279 @@
+﻿@inject MyDbContext _context
+@{
+	var sessionUserId = Context.Session.GetInt32("UserId");
+	bool hasSubscription = false;
+
+	if (sessionUserId != null)
+	{
+		var now = DateTime.Now;
+		hasSubscription = _context.UserSubscribes
+			.Any(us => us.UserId == sessionUserId
+								&& us.StartDate <= now
+								&& us.EndDate >= now);
+	}
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<!-- metas -->
+	<meta charset="utf-8">
+	<meta name="author" content="Chitrakoot Web" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="keywords" content="Nutrition Health and Diet HTML Template" />
+	<meta name="description" content="Lifestyle - Nutrition Health and Diet HTML Template" />
+
+	<!-- title  -->
+	<title>Lifestyle - Nutrition Health and Diet HTML Template</title>
+
+
+
+	<!-- theme core css -->
+	<link href="~/css/styles.css" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/animate.min.css">
+	<link rel="stylesheet" href="assets/css/fontawesome.min.css">
+	<link rel="stylesheet" href="assets/css/line-awesome.min.css">
+	<link rel="stylesheet" href="assets/css/swiper.min.css">
+	<link rel="stylesheet" href="assets/css/venobox.css">
+	<link rel="stylesheet" href="assets/css/header.css">
+	<link rel="stylesheet" href="assets/css/blog.css">
+	<link rel="stylesheet" href="assets/css/shop.css">
+	<link rel="stylesheet" href="assets/css/elements.css">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="assets/css/responsive.css">
+
+	<script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<body>
+	<div class="main-wrapper">
+
+
+		<div class="site-preloader">
+			<div class="spinner"></div>
+		</div><!--site preloader-->
+
+		<header class="header">
+			<div class="primary-header primary-header">
+				<div class="container">
+					<div class="primary-header-inner">
+						<div class="header-logo">
+							<a href="#">
+								<img class="light" src="assets/img/logo.png" alt="Logo" />
+								<img class="dark" src="assets/img/logo.png" alt="Logo" />
+							</a>
+						</div><!-- /.header-logo -->
+						<div class="header-menu-wrap">
+							<ul class="slider-menu">
+								<li>
+									<a href='index.html'>Home</a>
+									<ul>
+										<li><a href='index.html'>Home Default</a></li>
+										<li><a href='index-2.html'>Home Modern</a></li>
+									</ul>
+								</li>
+								<li><a href='about.html'>About</a></li>
+								<li>
+									<a href="#">Pages</a>
+									<ul>
+										<li><a href='service.html'>Services</a></li>
+										<li><a href='gallery.html'>Gallery</a></li>
+										<li><a href='testimonial.html'>Reviews</a></li>
+										<li><a href='team.html'>Farmers</a></li>
+										<li><a href='clients.html'>Our Clients</a></li>
+										<li><a href='404.html'>404 Error</a></li>
+									</ul>
+								</li>
+								<li>
+									<a href='shop.html'>Shop</a>
+									<ul>
+										<li><a href='shop.html'>Shop Grid Layout</a></li>
+										<li><a href='shop-details.html'>Shop Details</a></li>
+										<li><a href='cart.html'>Shop Cart</a></li>
+										<li><a href='checkout.html'>Checkout</a></li>
+									</ul>
+								</li>
+								<li>
+									<a href='blog-grid.html'>Blog</a>
+									<ul>
+										<li><a href='blog-grid.html'>Grid Layout</a></li>
+										<li><a href='blog-classic.html'>Classic Layout</a></li>
+										<li><a href='blog-details.html'>Blog Details</a></li>
+									</ul>
+								</li>
+								<li><a href='contact.html'>Contact</a></li>
+							</ul>
+						</div><!-- /.header-menu-wrap -->
+						<div class="header-right">
+							<div class="search-icon dl-search-icon"><i class="las la-search"></i></div>
+							<a class='header-btn' href='shop.html'>Shop Now<span></span></a>
+							<!-- Burger menu -->
+							<div class="mobile-menu-icon">
+								<div class="burger-menu">
+									<div class="line-menu line-half first-line"></div>
+									<div class="line-menu"></div>
+									<div class="line-menu line-half last-line"></div>
+								</div>
+							</div>
+						</div><!-- /.header-right -->
+					</div><!-- /.primary-header-inner -->
+				</div>
+			</div><!-- /.primary-header -->
+		</header><!-- /.Main Header -->
+	</div>
+	<main role="main">
+		@RenderBody()
+	</main>
+
+	<div>
+		<!-- FOOTER
+		================================================== -->
+		<footer>
+			<div class="container">
+				<div class="row mt-n2-6">
+					<div class="col-md-6 col-lg-6 col-xl-4 mt-2-6">
+						<div class="pe-md-5">
+							<div class="footer-logo mb-1-9">
+								<a href="index.html"><img src="~/img/logos/logo-inner.png" alt="..."></a>
+							</div>
+							<p class="text-white mb-1-6 mb-lg-1-9 opacity9">We had been the maximum trusted “Health care Nutrition” guide for 25 years, & We are pleased with our wealthy history.</p>
+							<ul class="footer-social-style1">
+								<li>
+									<a href="#!"><i class="fab fa-facebook-f"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="fab fa-twitter"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="fab fa-youtube"></i></a>
+								</li>
+								<li>
+									<a href="#!"><i class="fab fa-linkedin-in"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6 col-xl-2 mt-2-6">
+						<div class="ps-xl-2 ps-xxl-4">
+							<h3 class="title-font text-secondary mb-4 h4">Quick Links</h3>
+							<ul class="footer-list-style1 quick-list">
+								<li><a href="about-us.html">About Us</a></li>
+								<li><a href="our-team.html">Our Team</a></li>
+								<li><a href="our-services.html">Services</a></li>
+								<li><a href="blog-list.html">Blog</a></li>
+								<li><a href="contact.html">Contact Us</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6 col-xl-3 mt-2-6">
+						<div class="ps-xl-4 ps-xxl-5">
+							<h3 class="title-font text-secondary mb-4 h4">Opening Hours</h3>
+							<ul class="footer-hour-list quick-hours">
+								<li>
+									<i class="ti-time text-white"></i>
+									<div>
+										<h4 class="h6 text-white">Monday - Friday</h4>
+										<p class="mb-0 text-white display-30">8:00 AM - 5:00 PM</p>
+									</div>
+								</li>
+								<li>
+									<i class="ti-time text-white"></i>
+									<div>
+										<h4 class="h6 text-white">Saturday</h4>
+										<p class="mb-0 text-white display-30">9:00 AM - 4:00 PM</p>
+									</div>
+								</li>
+								<li>
+									<i class="ti-time text-white"></i>
+									<div>
+										<h4 class="h6 text-white">Sunday</h4>
+										<p class="mb-0 text-white display-30">Closed</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6 col-xl-3 mt-2-6">
+						<div>
+							<h3 class="title-font text-secondary mb-4 h4">Get In Touch</h3>
+							<p class="text-white mb-1-6 mb-lg-1-9 opacity9">Lorem ipsum dolor sit amet,adipiscing elit. Sed lorem quis venenatis euismod.</p>
+							<form class="quform newsletter-form w-90 w-sm-100" action="quform/newsletter-two.php" method="post" enctype="multipart/form-data" onclick="">
+								<div class="quform-elements position-relative">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="quform-element mb-0">
+												<div class="quform-input">
+													<input class="form-control news-box" id="email_address" type="text" name="email_address" placeholder="Enter Your Email">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="quform-submit-inner inner-button">
+												<button class="newsletter-btn bg-primary" type="submit"><span>Subscribe</span></button>
+											</div>
+											<div class="quform-loading-wrap text-start"><span class="quform-loading"></span></div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bar">
+				<div class="container">
+					<div class="text-center">
+						<p class="d-inline-block text-white mb-0 display-30 display-lg-29">&copy; <span class="current-year"></span> Lifestyle Powered By <a href="#!" class="text-secondary white-hover">Chitrakoot Web</a></p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+	</div>
+
+
+
+	<!-- start scroll to top -->
+	<a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+	<!-- end scroll to top -->
+	<!-- jQuery -->
+	<script src="~/js/jquery.min.js"></script>
+
+	<!-- popper js -->
+	<script src="~/js/popper.min.js"></script>
+
+	<!-- bootstrap -->
+	<script src="~/js/bootstrap.min.js"></script>
+
+	<!-- core.min.js -->
+	<script src="~/js/core.min.js"></script>
+
+	<!-- search -->
+	<script src="~/search/search.js"></script>
+
+	<!-- custom scripts -->
+	<script src="~/js/main.js"></script>
+
+	<!-- form plugins js -->
+	<script src="~/quform/js/plugins.js"></script>
+
+	<!-- form scripts js -->
+	<script src="~/quform/js/scripts.js"></script>
+	<!--jQuery Lib-->
+	<script src="assets/js/vendor/jquary-3.6.0.min.js"></script>
+	<script src="assets/js/vendor/bootstrap.min.js"></script>
+	<script src="assets/js/vendor/popper.min.js"></script>
+	<script src="assets/js/vendor/swiper.min.js"></script>
+	<script src="assets/js/vendor/venobox.min.js"></script>
+	<script src="assets/js/vendor/smooth-scroll.js"></script>
+	<script src="assets/js/vendor/wow.min.js"></script>
+	<script src="assets/js/main.js"></script>
+	<!-- all js include end -->
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

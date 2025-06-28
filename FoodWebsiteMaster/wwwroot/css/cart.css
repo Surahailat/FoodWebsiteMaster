@@ -1,4 +1,4 @@
-﻿body {
+﻿/*body {
     background-color: #f7fafa;
     font-family: 'Arial', sans-serif;
 }
@@ -39,4 +39,36 @@
 .subtotal-text {
     font-size: 1.25rem;
     font-weight: bold;
+}
+*/
+
+
+
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    td {
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+        td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+
+    .checkout-box {
+        text-align: center;
+    }
 }

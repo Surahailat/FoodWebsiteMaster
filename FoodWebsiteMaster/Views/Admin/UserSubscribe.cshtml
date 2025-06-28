@@ -1,0 +1,68 @@
+﻿@model IEnumerable<FoodWebsiteMaster.Models.UserSubscribe>
+
+@{
+    ViewData["Title"] = "UserSubscribe";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>user</h1>
+
+<div class=" flex-grow-1 overflow-y-lg-auto">
+    <!-- Header -->
+    <header class="bg-surface-primary border-bottom pt-6">
+        <div class="container-fluid">
+            <div class="mb-npx">
+                <div class="row align-items-center">
+                    <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<div class="card shadow border-0 mb-7">
+
+    <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Email</th>
+                        <th scope="col">Subscription Name</th>
+
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>
+                                @item.User.Username
+                        </td>
+                        <td>
+                                @item.User.Email
+                        </td>
+                            <td>
+                                @item.Subscription.Name
+                            </td>
+                        <td>
+                                @item.StartDate
+                        </td>
+                        <td>
+                                @item.EndDate
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</div>
+
+

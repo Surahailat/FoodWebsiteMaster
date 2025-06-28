@@ -1,0 +1,155 @@
+﻿@model List<FoodWebsiteMaster.Models.Subscription>
+@{
+    ViewData["Title"] = "Subscription";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- CSS for modal -->
+<style>
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+    }
+
+    .modal-dialog {
+        margin: 10% auto;
+    }
+</style>
+<!-- PRICING
+================================================== -->
+<section>
+    <div class="container">
+        <div class="section-heading">
+            <span class="title-font text-primary display-25 display-md-23 d-block mb-1">Our plans</span>
+            <h2 class="display-25 display-sm-20 display-md-20 display-xl-9 font-weight-600 mb-3">Pick Your Suitable<span class="fw-bolder text-secondary"> Offer</span></h2>
+            <p class="mb-0 w-md-80 w-lg-70 w-xl-50 mx-auto">We connect buyers and sellers of natural, organic, environmentally sound products. We find the best suppliers and makers of natural and organic products.</p>
+        </div>
+        <div class="row g-xl-5 mt-n1-9">
+            @foreach (var plan in Model)
+            {
+                <div class="col-md-6 col-lg-4 mt-1-9">
+                    <div class="card card-style2 border-radius-10">
+                        <div class="card-header position-relative">
+                            <h3 class="mb-0 h4 text-white">@plan.Name</h3>
+                            <div class="pricing-box">
+                                <img src="~/img/icons/icon-06.png" alt="...">
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start justify-content-center mt-3 mb-0">
+                            <h4 class="display-5 mb-0 font-weight-600">@plan.Price</h4>
+                            <span class="align-self-end fw-bolder display-30 display-sm-28">JD / month</span>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-style1">
+                                <li>Diet Recommendation</li>
+                                <li>Motivation program</li>
+                                <li>Weight Assessment</li>
+                                <li>Nutrition Strategies</li>
+                            </ul>
+                            <div class="text-center">
+                                <a class="butn secondary" style="z-index:1" onclick="openPaymentModal(@plan.Id, @plan.Price)">Choose Plan</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div id="paymentModal" class="modal" tabindex="-1" role="dialog" style="display:none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="paymentForm" method="post" asp-action="Subscribe" asp-controller="Main">
+                <div class="modal-header">
+                    <h5 class="modal-title">Complete Payment</h5>
+                    <button type="button" class="close" onclick="closePaymentModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="SubscriptionId" id="SubscriptionId" />
+                    <input type="hidden" name="Amount" id="Amount" />
+
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" name="CardNumber" class="form-control" placeholder="1234 5678 9012 3456" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Card Holder Name</label>
+                        <input type="text" name="CardHolderName" class="form-control" required />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Expiry Date</label>
+                                <input type="text" name="ExpiryDate" class="form-control" placeholder="MM/YY" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <input type="text" name="CVV" class="form-control" placeholder="123" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Pay Now</button>
+                    <button type="button" class="btn btn-secondary" onclick="closePaymentModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function openPaymentModal(subscriptionId, amount) {
+    @if (Context.Session.GetInt32("UserId") == null)
+    {
+        <text>
+                    Swal.fire({
+                        title: 'Login Required',
+                        text: 'Please log in to proceed with the payment.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Login',
+                        cancelButtonText: 'Cancel',
+                        confirmButtonColor: '#57aa46'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '@Url.Action("signIn", "user")';
+                        }
+                    });
+                    return;
+        </text>
+    }
+        document.getElementById('SubscriptionId').value = subscriptionId;
+        document.getElementById('Amount').value = amount;
+        document.getElementById('paymentModal').style.display = 'block';
+    }
+    function closePaymentModal() {
+        document.getElementById('paymentModal').style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    @if (TempData["PaymentSuccess"] != null)
+    {
+        <text>
+                    Swal.fire({
+                        title: 'Payment Successful!',
+                        text: 'Your subscription has been activated successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#57aa46',
+                        timerProgressBar: true
+                    });
+        </text>
+    }
+    });
+</script>

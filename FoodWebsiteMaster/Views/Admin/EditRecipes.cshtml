@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewData["Title"] = "EditRecipe";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model FoodWebsiteMaster.Models.Recipe
+
+
+<h2>Edit Recipe - @Model.Name</h2>
+
+<form asp-action="EditRecipes" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Type" class="form-label"></label>
+        <input asp-for="Type" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ServingSize" class="form-label"></label>
+        <input asp-for="ServingSize" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CaloriesTotal" class="form-label"></label>
+        <input asp-for="CaloriesTotal" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TotalFat" class="form-label"></label>
+        <input asp-for="TotalFat" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Carbohydrate" class="form-label"></label>
+        <input asp-for="Carbohydrate" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Protein" class="form-label"></label>
+        <input asp-for="Protein" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageUrl" class="form-label"></label>
+        <input asp-for="ImageUrl" class="form-control" />
+    </div>
+
+    <h4>Ingredients</h4>
+    @for (int i = 0; i < Model.Ingredients.Count; i++)
+    {
+        <input type="hidden" name="Ingredients[@i].Id" value="@Model.Ingredients.ElementAt(i).Id" />
+        <div class="mb-2">
+            <input name="Ingredients[@i].IngredientText" class="form-control" value="@Model.Ingredients.ElementAt(i).IngredientText" />
+        </div>
+
+    }
+    <button type="button" class="btn btn-outline-success mb-3" onclick="addIngredient()">+ Add Ingredient</button>
+
+    <h4>Directions</h4>
+    @for (int i = 0; i < Model.Directions.Count; i++)
+    {
+        <input type="hidden" name="Directions[@i].Id" value="@Model.Directions.ElementAt(i).Id" />
+        <div class="mb-2">
+            <label>Step @Model.Directions.ElementAt(i).StepNumber</label>
+            <textarea name="Directions[@i].DirectionText" class="form-control">@Model.Directions.ElementAt(i).DirectionText</textarea>
+        </div>
+    }
+    <button type="button" class="btn btn-outline-info mb-3" onclick="addDirection()">+ Add Direction</button>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+@section Scripts {
+    <script>
+        let ingredientIndex = @Model.Ingredients.Count;
+        let directionIndex = @Model.Directions.Count;
+
+        function addIngredient() {
+            const container = document.createElement("div");
+            container.classList.add("mb-2");
+
+            container.innerHTML = `
+                <input type="hidden" name="Ingredients[${ingredientIndex}].Id" value="0" />
+                <input name="Ingredients[${ingredientIndex}].IngredientText" class="form-control" />
+            `;
+
+            document.querySelector("form").insertBefore(container, document.querySelector("button[onclick='addIngredient()']").nextSibling);
+            ingredientIndex++;
+        }
+
+        function addDirection() {
+            const container = document.createElement("div");
+            container.classList.add("mb-2");
+
+            container.innerHTML = `
+                <input type="hidden" name="Directions[${directionIndex}].Id" value="0" />
+                <label>Step ${directionIndex + 1}</label>
+                <textarea name="Directions[${directionIndex}].DirectionText" class="form-control"></textarea>
+            `;
+
+            document.querySelector("form").insertBefore(container, document.querySelector("button[onclick='addDirection()']").nextSibling);
+            directionIndex++;
+        }
+    </script>
+}

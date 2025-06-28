@@ -1,91 +1,4 @@
-﻿@model IEnumerable<FoodWebsiteMaster.Models.Recipe>
-
-@{
-    ViewData["Title"] = "mealPlan";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h1>mealPlan</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServingSize)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CaloriesTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Carbohydrate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalFat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Protein)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServingSize)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CaloriesTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Carbohydrate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalFat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Protein)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-
-
-
-
+﻿
 
 <head>
     <!-- favicon -->
@@ -176,6 +89,7 @@
                             </ul>
                             <div class="resp-tabs-container hor_1">
                                 <div>
+
                                     <div class="row mt-n1-6 g-0 justify-content-center align-items-center mb-1-6 mb-md-2-2 mb-xl-2-8">
                                         <div class="col-lg-6 mt-1-6">
                                             <div class="meal-detail position-relative overflow-hidden border-radius-10">
@@ -468,16 +382,12 @@
                     </div>
                 </div>
             </div>
-            <img src="img/content/animation2.png" class="position-absolute bottom-5 right-5 ani-top-bottom d-none d-xl-block" alt="...">
-            <img src="img/content/animation3.png" class="position-absolute left-0 top-15 ani-left-right d-none d-xl-block" alt="...">
+            <img src="~/img/content/animation2.png" class="position-absolute bottom-5 right-5 ani-top-bottom d-none d-xl-block" alt="...">
+            <img src="/img/content/animation3.png" class="position-absolute left-0 top-15 ani-left-right d-none d-xl-block" alt="...">
         </section>
     </div>
 
-    <!-- BUY TEMPLATE
-    ================================================== -->
-    <div class="buy-theme alt-font d-none d-lg-inline-block"><a href="https://wrapbootstrap.com/theme/lifestyle-nutrition-health-diet-theme-WB07X4454" target="_blank"><i class="fas fa-cart-plus"></i><span>Buy Template</span></a></div>
 
-    <div class="all-demo alt-font d-none d-lg-inline-block"><a href="https://www.chitrakootweb.com/contact.html" target="_blank"><i class="far fa-envelope"></i><span>Quick Question?</span></a></div>
 
     <!-- start scroll to top -->
     <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>

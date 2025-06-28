@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using FoodWebsiteMaster.Models.viewModel;
 using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace FoodWebsiteMaster.Controllers
 {
@@ -17,6 +19,8 @@ namespace FoodWebsiteMaster.Controllers
         {
             _context = context;
         }
+        // /////////////////////////////////////////////////////////////////////
+        // signIn
         public IActionResult signIn()
         {
             return View();
@@ -25,114 +29,159 @@ namespace FoodWebsiteMaster.Controllers
         [HttpPost]
         public async Task<IActionResult> signIn(string email, string password)
         {
-
-            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
-            if (user == null)
+            // Basic input validation (ensure email and password are not empty)
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                ViewBag.Message = "Wrong email or password!";
+                ModelState.AddModelError(string.Empty, "Email and Password are required.");
                 return View();
             }
-            else if (user != null)
+
+            // Check if the user exists in the database
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
             {
-                HttpContext.Session.SetInt32("UserId", user.Id);
-                HttpContext.Session.SetString("Username", user.Username);
-                HttpContext.Session.SetString("Phone", user.Phone);
-                HttpContext.Session.SetString("Email", user.Email);
-                _context.SaveChanges();
+                // User not found - add a model error for email
+                ModelState.AddModelError("Email", "Email not found!");
+                return View();
+            }
 
-                // نقل بيانات سلة التسوق من الكوكيز إلى قاعدة البيانات
-                const string cartCookie = "temporaryCart";
-                string cartCookieValue = Request.Cookies[cartCookie];
+            // Check if the password is correct
+            if (user.Password != password)
+            {
+                // Incorrect password - add a model error for password
+                ModelState.AddModelError("Password", "Incorrect password!");
+                return View();
+            }
 
-                if (!string.IsNullOrEmpty(cartCookieValue))
+            // If the user exists and the password is correct
+            HttpContext.Session.SetInt32("UserId", user.Id);
+            HttpContext.Session.SetString("Username", user.Username);
+            HttpContext.Session.SetString("Phone", user.Phone);
+            HttpContext.Session.SetString("Email", user.Email);
+            _context.SaveChanges();
+
+            // Handle cart cookies (temporary cart for the user)
+            const string cartCookie = "temporaryCart";
+            string cartCookieValue = Request.Cookies[cartCookie];
+
+            if (!string.IsNullOrEmpty(cartCookieValue))
+            {
+                List<tempCart> cartListFromCookie = new List<tempCart>();
+                try
                 {
-                    List<tempCart> cartListFromCookie = new List<tempCart>();
-                    try
-                    {
-                        cartListFromCookie = JsonSerializer.Deserialize<List<tempCart>>(cartCookieValue);
+                    cartListFromCookie = JsonSerializer.Deserialize<List<tempCart>>(cartCookieValue);
 
-                        if (cartListFromCookie != null && cartListFromCookie.Any())
+                    if (cartListFromCookie != null && cartListFromCookie.Any())
+                    {
+                        var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == user.Id);
+                        if (cart == null)
                         {
-                            // التأكد من وجود كارت للمستخدم أو إنشائه إذا لم يكن موجودًا
-                            var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == user.Id);
-                            if (cart == null)
-                            {
-                                cart = new Cart { UserId = user.Id, CreatedAt = DateTime.Now };
-                                _context.Carts.Add(cart);
-                                await _context.SaveChangesAsync();
-                            }
-
-                            foreach (var cookieItem in cartListFromCookie)
-                            {
-                                // التحقق إذا كان المنتج موجودًا بالفعل في سلة التسوق
-                                var existingCartItem = await _context.CartItems.FirstOrDefaultAsync(
-                                    item => item.CartId == cart.Id && item.ProductId == cookieItem.ProductID);
-
-                                if (existingCartItem != null)
-                                {
-                                    // زيادة الكمية إذا كان المنتج موجودًا
-                                    existingCartItem.Quantity += cookieItem.Quantity;
-                                    existingCartItem.UpdatedAt = DateTime.Now;
-                                    _context.Update(existingCartItem);
-                                }
-                                else
-                                {
-                                    // إضافة عنصر جديد إلى سلة التسوق
-                                    var newCartItem = new CartItem
-                                    {
-                                        CartId = cart.Id,
-                                        ProductId = cookieItem.ProductID,
-                                        Quantity = cookieItem.Quantity,
-                                        AddedAt = cookieItem.AddedAt, // الاحتفاظ بتاريخ الإنشاء الأصلي من الكوكي
-                                        UpdatedAt = DateTime.Now,
-                                        UserId = user.Id // يجب تعيين UserId هنا أيضًا
-                                    };
-                                    _context.CartItems.Add(newCartItem);
-                                }
-                            }
+                            cart = new Cart { UserId = user.Id, CreatedAt = DateTime.Now };
+                            _context.Carts.Add(cart);
                             await _context.SaveChangesAsync();
-
-                            // مسح الكوكي بعد نقل البيانات
-                            Response.Cookies.Delete(cartCookie);
                         }
-                    }
-                    catch (JsonException ex)
-                    {
-                        Console.WriteLine($"Error deserializing cart cookie during login: {ex.Message}");
-                        // يمكنك هنا إضافة منطق للتعامل مع خطأ فك تسلسل الكوكي، مثل مسحه
+
+                        foreach (var cookieItem in cartListFromCookie)
+                        {
+                            var existingCartItem = await _context.CartItems.FirstOrDefaultAsync(
+                                item => item.CartId == cart.Id && item.ProductId == cookieItem.ProductID);
+
+                            if (existingCartItem != null)
+                            {
+                                existingCartItem.Quantity += cookieItem.Quantity;
+                                existingCartItem.UpdatedAt = DateTime.Now;
+                                _context.Update(existingCartItem);
+                            }
+                            else
+                            {
+                                var newCartItem = new CartItem
+                                {
+                                    CartId = cart.Id,
+                                    ProductId = cookieItem.ProductID,
+                                    Quantity = cookieItem.Quantity,
+                                    AddedAt = cookieItem.AddedAt,
+                                    UpdatedAt = DateTime.Now,
+                                    UserId = user.Id
+                                };
+                                _context.CartItems.Add(newCartItem);
+                            }
+                        }
+                        await _context.SaveChangesAsync();
                         Response.Cookies.Delete(cartCookie);
                     }
                 }
+                catch (JsonException ex)
+                {
+                    Console.WriteLine($"Error deserializing cart cookie during login: {ex.Message}");
+                    Response.Cookies.Delete(cartCookie);
+                }
             }
 
-            return RedirectToAction("Home2","Main");
+            // Redirect to the Home2 action in the Main controller after successful login
+            return RedirectToAction("Home2", "Main");
         }
-        public IActionResult Register()
-        {
 
-            return View();
-        }
+
+        // /////////////////////////////////////////////////////////////////////
+        // Register
+
         [HttpPost]
-        public IActionResult Register(User user)
+        public IActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (_context.Users.Any(u => u.Email == model.Email))
             {
-                _context.Users.Add(user);
-                _context.SaveChanges();
-                HttpContext.Session.SetString("Username", user.Username);
-                HttpContext.Session.SetString("Phone", user.Phone);
-                HttpContext.Session.SetString("Email", user.Email);
-
-                return RedirectToAction("signIn");
+                TempData["ErrorMessage"] = "Email is already registered.";
+                return RedirectToAction("signIn"); 
 
             }
-            return View(user);
+
+            if (_context.Users.Any(u => u.Phone == model.Phone))
+            {
+                TempData["ErrorMessage"] = "Phone number is already registered.";
+                return RedirectToAction("signIn");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("signIn", model);
+
+                //return View(model);
+            }
+
+            var hasher = new PasswordHasher<User>();
+
+            var user = new User
+            {
+                Username = model.Username,
+                Phone = model.Phone,
+                Email = model.Email,
+            };
+
+            user.Password = hasher.HashPassword(user, model.Password);
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            HttpContext.Session.SetString("Username", user.Username);
+            HttpContext.Session.SetString("Phone", user.Phone);
+            HttpContext.Session.SetString("Email", user.Email);
+
+            return RedirectToAction("signIn");
         }
+
+
+
+        // /////////////////////////////////////////////////////////////////////
+        // Logout
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("signIn");
         }
+
+        // /////////////////////////////////////////////////////////////////////
+        // Profile
         public IActionResult Profile()
         {
             var userId = HttpContext.Session.GetInt32("UserId");
@@ -147,7 +196,7 @@ namespace FoodWebsiteMaster.Controllers
 
             return View(user); 
         }
-
+        ///////////////////////////////////////////////////////////////////////////////////
         [HttpPost]
         public IActionResult UpdateProfile(User updatedUser)
         {
@@ -179,6 +228,7 @@ namespace FoodWebsiteMaster.Controllers
 
             return NotFound();
         }
+        ////////////////////////////////////////////////////////////////////////////////////
         [HttpPost]
         public IActionResult ChangePassword(ChangePasswordViewModel model)
         {
@@ -206,9 +256,6 @@ namespace FoodWebsiteMaster.Controllers
             ViewBag.Message = "Password updated successfully!";
             return View("Profile");
         }
-
-
-
 
     }
 }

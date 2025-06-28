@@ -1,4 +1,11 @@
-﻿
+﻿@model FoodWebsiteMaster.Models.RecipeDetailsViewModel
+
+@{
+    ViewData["Title"] = "RecipeDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
 
 <link rel="stylesheet" href="~/css/style.css">
 <link rel="stylesheet" href="~/css/colors/green.css" id="colors">
@@ -25,8 +32,8 @@
 					<!-- Header -->
 					<section class="recipe-header">
 						<div class="title-alignment">
-							<h2>Chunky Beef Stew</h2>
-							
+							<h2>@Model.Recipe.Name</h2>
+
 						</div>
 					</section>
 
@@ -41,14 +48,13 @@
 					<!-- Details -->
 					<section class="recipe-details" itemprop="nutrition">
 						<ul>
-							<li>Serves: <strong itemprop="recipeYield">4 people</strong></li>
+							<li>Serves: <strong itemprop="recipeYield">@Model.Recipe.ServingSize people</strong></li>
 							<li>Prep Time: <strong itemprop="prepTime">30 min</strong></li>
 							<li>Cooking: <strong itemprop="cookTime">2 hours</strong></li>
-							<li>Calories: <strong itemprop="calories">632 kcal</strong></li>
+							<li>Calories: <strong itemprop="calories">@Model.Recipe.CaloriesTotal kcal</strong></li>
 						</ul>
 						<div class="clearfix"></div>
 					</section>
-
 
 					<!-- Text -->
 					<p itemprop="description">This is a very basic beef stew. It’s easy, delicious and inexpensive to make. While there are hundreds of variations of this traditional recipe, it’s hard to improve on this version’s savory and comforting goodness.</p>
@@ -57,60 +63,23 @@
 					<!-- Ingredients -->
 					<h3>Ingredients</h3>
 					<ul class="ingredients">
-						<li>
-							<input id="check-1" type="checkbox" name="check" value="check-1">
-							<label itemprop="ingredients" for="check-1">2 pounds cubed beef stew meat</label>
-						</li>
-
-						<li>
-							<input id="check-2" type="checkbox" name="check" value="check-2">
-							<label itemprop="ingredients" for="check-2">3 tablespoons vegetable oil</label>
-						</li>
-
-						<li>
-							<input id="check-3" type="checkbox" name="check" value="check-3">
-							<label itemprop="ingredients" for="check-3">4 cubes beef bouillon, crumbled</label>
-						</li>
-
-						<li>
-							<input id="check-4" type="checkbox" name="check" value="check-4">
-							<label itemprop="ingredients" for="check-4">1 large onion, chopped</label>
-						</li>
-
-						<li>
-							<input id="check-5" type="checkbox" name="check" value="check-5">
-							<label itemprop="ingredients" for="check-5">1 teaspoon dried rosemary</label>
-						</li>
-
-						<li>
-							<input id="check-6" type="checkbox" name="check" value="check-6">
-							<label itemprop="ingredients" for="check-6">1/2 teaspoon ground black pepper</label>
-						</li>
-
-						<li>
-							<input id="check-7" type="checkbox" name="check" value="check-7">
-							<label itemprop="ingredients" for="check-7">3 large potatoes, peeled and cubed </label>
-						</li>
-
-						<li>
-							<input id="check-8" type="checkbox" name="check" value="check-8">
-							<label itemprop="ingredients" for="check-8">4 carrots, cut into 1 inch pieces</label>
-						</li>
-
-						<li>
-							<input id="check-9" type="checkbox" name="check" value="check-9">
-							<label itemprop="ingredients" for="check-9">4 stalks celery, cut into 1 inch pieces</label>
-						</li>
+						@for (int i = 0; i < Model.Ingredients.Count; i++)
+						{
+							<li>
+								<input id="check-@i" type="checkbox" name="check" value="check-@i">
+								<label itemprop="ingredients" for="check-@i">@Model.Ingredients[i].IngredientText</label>
+							</li>
+						}
 					</ul>
 
 
 					<!-- Directions -->
 					<h3>Directions</h3>
 					<ol class="directions" itemprop="recipeInstructions">
-						<li>In a Dutch oven, heat oil over medium heat until hot, but not smoking. Pat the meat dry with paper towels and brown in batches, transferring the meat with a slotted spoon to a bowl as they are done.</li>
-						<li>In the fat remaining in the pot, cook the onions until softened, about 5 minutes. </li>
-						<li>Return meat to the pot with any juices in the bowl and add the tomatoes with juice, chiles, beer, beef broth, oregano, cumin, and Worcestershire sauce. Season with salt and pepper to taste.</li>
-						<li>Bring to a boil and reduce heat. Simmer, partially covered, for 2 1/2 hours or until meat is tender.</li>
+						@foreach (var step in Model.Directions.OrderBy((Func<dynamic, int>)(s => s.StepNumber ?? 0)))
+						{
+							<li>@step.DirectionText</li>
+						}
 					</ol>
 
 
@@ -142,8 +111,6 @@
 
 	</div>
 	<!-- Wrapper / End -->
-
-
 	<!-- Back To Top Button -->
 	<div id="backtotop"><a href="#"></a></div>
 
@@ -202,5 +169,6 @@
 
 </body>
 
-<!-- Mirrored from www.vasterad.com/themes/chow_html/recipe-page-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Apr 2025 21:33:54 GMT -->
-</html>
+
+
+
